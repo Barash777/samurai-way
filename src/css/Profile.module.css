@@ -1,0 +1,22 @@
+.profile {
+    grid-area: content-area;
+    background-color: aqua;
+}
+
+
+.profile .topImage {
+    width: 1000px;
+}
+
+.profile img.avatar {
+    width: 100px;
+}
+
+.posts {
+    /*background-color: white;*/
+}
+
+.item {
+    color: #c04f08;
+}
+

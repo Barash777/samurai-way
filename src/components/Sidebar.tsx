@@ -1,21 +1,22 @@
 import React from 'react';
+import css from '../css/Sidebar.module.css';
 
 function Sidebar() {
     return (
-        <nav className="sidebar">
-            <div>
+        <nav className={css.sidebar}>
+            <div className={`${css.item} ${css.active}`}>
                 <a>Profile</a>
             </div>
-            <div>
+            <div className={css.item}>
                 <a>Messages</a>
             </div>
-            <div>
+            <div className={css.item}>
                 <a>News</a>
             </div>
-            <div>
+            <div className={css.item}>
                 <a>Music</a>
             </div>
-            <div>
+            <div className={css.item}>
                 <a>Settings</a>
             </div>
         </nav>
