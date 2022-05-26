@@ -1,5 +1,6 @@
 import React from 'react';
-import css from '../css/Profile.module.css';
+import css from './Profile.module.css';
+import MyPosts from './MyPosts/MyPosts';
 
 function Profile() {
     return (
@@ -14,23 +15,7 @@ function Profile() {
                      src="https://cdn.arstechnica.net/wp-content/uploads/2016/02/5718897981_10faa45ac3_b-640x624.jpg"
                      alt=""/>
             </div>
-            <div>
-                My posts
-                <div>
-                    New posts
-                </div>
-                <div className={css.posts}>
-                    <div className={css.item}>
-                        Post1
-                    </div>
-                    <div className={css.item}>
-                        Post2
-                    </div>
-                    <div className={css.item}>
-                        Post3
-                    </div>
-                </div>
-            </div>
+            <MyPosts/>
 
         </div>
     );
