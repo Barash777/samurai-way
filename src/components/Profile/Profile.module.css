@@ -1,13 +1,7 @@
-.profile {
-    grid-area: content-area;
-    background-color: aqua;
-}
-
-
-.profile .topImage {
+.topImage {
     width: 1000px;
 }
 
-.profile img.avatar {
+img.avatar {
     width: 100px;
 }
