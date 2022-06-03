@@ -1,12 +1,15 @@
 .sidebar {
     grid-area: sidebar-area;
     background-color: #f8a817;
+    padding: 20px;
 }
 
-.item {
+.item a {
     color: white;
+    text-decoration: none;
 }
 
-.active {
-    color: orangered;
+.item a.active {
+    font-weight: bold;
+    color: #0023e1;
 }
