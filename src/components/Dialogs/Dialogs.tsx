@@ -2,36 +2,50 @@ import React from 'react';
 import css from './Dialogs.module.css'
 import {NavLink} from 'react-router-dom';
 
+type DialogItemPropsType = {
+    name: string,
+    id: number
+}
+
+const DialogItem = (props: DialogItemPropsType) => {
+    let path = '/dialogs/' + props.id.toString()
+
+    return (
+        <div className={css.dialogItem}>
+            <NavLink to={path} activeClassName={css.active}>{props.name}</NavLink>
+        </div>
+    )
+}
+
+
+type MessageItemPropsType = {
+    text: string
+}
+
+const MessageItem = (props: MessageItemPropsType) => {
+    return (
+        <div className={css.messageItem}>
+            {props.text}
+        </div>
+    )
+}
+
+
 const Dialogs = () => {
     return (
         <div className={css.dialogsPage}>
             <div className={css.dialogs}>
-                <div className={css.dialogItem}>
-                    <NavLink to={'/dialogs/1'} activeClassName={css.active}>Olga</NavLink>
-                </div>
-                <div className={css.dialogItem}>
-                    <NavLink to={'/dialogs/2'} activeClassName={css.active}>Victor</NavLink>
-                </div>
-                <div className={css.dialogItem}>
-                    <NavLink to={'/dialogs/3'} activeClassName={css.active}>Ilya</NavLink>
-                </div>
-                <div className={css.dialogItem}>
-                    <NavLink to={'/dialogs/4'} activeClassName={css.active}>Anton</NavLink>
-                </div>
-                <div className={css.dialogItem}>
-                    <NavLink to={'/dialogs/5'} activeClassName={css.active}>Elena</NavLink>
-                </div>
+                <DialogItem name="Olga" id={1}/>
+                <DialogItem name="Victor" id={2}/>
+                <DialogItem name="Ilya" id={3}/>
+                <DialogItem name="Anton" id={4}/>
+                <DialogItem name="Elena" id={5}/>
             </div>
             <div className={css.messages}>
-                <div className={css.messageItem}>
-                    Hi
-                </div>
-                <div className={css.messageItem}>
-                    Hello
-                </div>
-                <div className={css.messageItem}>
-                    What's up?
-                </div>
+                <MessageItem text={'Hi'}/>
+                <MessageItem text={'Hello'}/>
+                <MessageItem text={'What\'s up?'}/>
+                <MessageItem text={'It\'s my last message!'}/>
             </div>
         </div>
     );
