@@ -2,9 +2,15 @@ import React from 'react';
 import css from './MyPosts.module.css';
 import Post, {PostPropsType} from './Post/Post';
 
-function MyPosts() {
+//import state from '../../../redux/state';
 
-    let postsData: Array<PostPropsType> = [
+type MyPostsType = {
+    posts: Array<PostPropsType>
+}
+
+function MyPosts(props: MyPostsType) {
+
+    /*let postsData: Array<PostPropsType> = [
         {
             id: 1,
             message: 'Hello',
@@ -20,7 +26,11 @@ function MyPosts() {
             message: 'OK',
             likeCount: 37
         }
-    ]
+    ]*/
+
+    // const postsData = state.profilePage.posts;
+    //const postsData: Array<PostPropsType> = state.profilePage.posts;
+    const postsData = props.posts;
 
     const postsJSX = postsData.map(p => <Post id={p.id} message={p.message} likeCount={p.likeCount}/>)
 
