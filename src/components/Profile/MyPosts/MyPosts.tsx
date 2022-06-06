@@ -4,7 +4,7 @@ import Post, {PostPropsType} from './Post/Post';
 
 function MyPosts() {
 
-    let postData: Array<PostPropsType> = [
+    let postsData: Array<PostPropsType> = [
         {
             id: 1,
             message: 'Hello',
@@ -22,6 +22,8 @@ function MyPosts() {
         }
     ]
 
+    const postsJSX = postsData.map(p => <Post id={p.id} message={p.message} likeCount={p.likeCount}/>)
+
     return (
         <div className={css.postsBlock}>
             <h3>My posts</h3>
@@ -34,9 +36,7 @@ function MyPosts() {
                 </div>
             </div>
             <div className={css.posts}>
-                <Post id={postData[0].id} message={postData[0].message} likeCount={postData[0].likeCount}/>
-                <Post id={postData[1].id} message={postData[1].message} likeCount={postData[1].likeCount}/>
-                <Post id={postData[2].id} message={postData[2].message} likeCount={postData[2].likeCount}/>
+                {postsJSX}
             </div>
         </div>
     );
