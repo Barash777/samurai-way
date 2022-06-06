@@ -2,11 +2,16 @@ import React from 'react';
 import css from './Dialogs.module.css'
 import {DialogItem, DialogItemPropsType} from './DialogItem/DialogItem';
 import {MessageItem, MessageItemPropsType} from './MessageItem/MessageItem';
+import {DialogsPageType} from '../../redux/state';
 // import state from '../../redux/state';
 
-type DialogsPropsType = {
+/*type DialogsPropsType = {
     dialogsData: Array<DialogItemPropsType>
     messagesData: Array<MessageItemPropsType>
+}*/
+
+type DialogsPropsType = {
+    dialogsPage: DialogsPageType
 }
 
 const Dialogs = (props: DialogsPropsType) => {
@@ -55,8 +60,8 @@ const Dialogs = (props: DialogsPropsType) => {
     //const dialogsData: Array<DialogItemPropsType> = state.dialogsPage.dialogs;
     //const messagesData: Array<MessageItemPropsType> = state.dialogsPage.messages;
 
-    const dialogsData = props.dialogsData;
-    const messagesData = props.messagesData;
+    const dialogsData = props.dialogsPage.dialogs;
+    const messagesData = props.dialogsPage.messages;
 
     const dialogsJSX = dialogsData.map(d => <DialogItem name={d.name} id={d.id}/>)
     const messagesJSX = messagesData.map(m => <MessageItem text={m.text} id={m.id}/>)
