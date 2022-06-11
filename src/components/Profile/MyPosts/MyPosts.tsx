@@ -10,39 +10,29 @@ type MyPostsType = {
 
 function MyPosts(props: MyPostsType) {
 
-    /*let postsData: Array<PostPropsType> = [
-        {
-            id: 1,
-            message: 'Hello',
-            likeCount: 12
-        },
-        {
-            id: 2,
-            message: 'Wow',
-            likeCount: 25
-        },
-        {
-            id: 3,
-            message: 'OK',
-            likeCount: 37
-        }
-    ]*/
-
     // const postsData = state.profilePage.posts;
     //const postsData: Array<PostPropsType> = state.profilePage.posts;
     const postsData = props.posts;
 
     const postsJSX = postsData.map(p => <Post id={p.id} message={p.message} likeCount={p.likeCount}/>)
 
+    const newPostElement = React.createRef<HTMLTextAreaElement>();
+
+    const addPost = () => {
+        const text = newPostElement.current?.value;
+        alert(text)
+        // newPostElement.current.value = ''
+    }
+
     return (
         <div className={css.postsBlock}>
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea></textarea>
+                    <textarea ref={newPostElement}></textarea>
                 </div>
                 <div>
-                    <button>Add post</button>
+                    <button onClick={addPost}>Add post</button>
                 </div>
             </div>
             <div className={css.posts}>

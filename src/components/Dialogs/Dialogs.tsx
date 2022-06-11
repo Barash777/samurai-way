@@ -16,47 +16,6 @@ type DialogsPropsType = {
 
 const Dialogs = (props: DialogsPropsType) => {
 
-    /*let dialogsData: Array<DialogItemPropsType> = [
-        {
-            name: 'Olga',
-            id: 1
-        },
-        {
-            name: 'Victor',
-            id: 2
-        },
-        {
-            name: 'Ilya',
-            id: 3
-        },
-        {
-            name: 'Anton',
-            id: 4
-        },
-        {
-            name: 'Elena',
-            id: 5
-        }
-    ]
-    let messagesData: Array<MessageItemPropsType> = [
-        {
-            id: 1,
-            text: 'Hi',
-        },
-        {
-            id: 2,
-            text: 'Hey',
-        },
-        {
-            id: 3,
-            text: 'Stop it!',
-        },
-        {
-            id: 4,
-            text: 'What\'s up!',
-        }
-    ]*/
-
     //const dialogsData: Array<DialogItemPropsType> = state.dialogsPage.dialogs;
     //const messagesData: Array<MessageItemPropsType> = state.dialogsPage.messages;
 
@@ -66,6 +25,12 @@ const Dialogs = (props: DialogsPropsType) => {
     const dialogsJSX = dialogsData.map(d => <DialogItem name={d.name} id={d.id}/>)
     const messagesJSX = messagesData.map(m => <MessageItem text={m.text} id={m.id}/>)
 
+    const textAreaRef = React.createRef<HTMLTextAreaElement>();
+
+    const sendMessage = () => {
+        alert(textAreaRef.current?.value)
+    }
+
     return (
         <div className={css.dialogsPage}>
             <div className={css.dialogs}>
@@ -73,6 +38,10 @@ const Dialogs = (props: DialogsPropsType) => {
             </div>
             <div className={css.messages}>
                 {messagesJSX}
+            </div>
+            <div>
+                <textarea ref={textAreaRef}></textarea>
+                <button onClick={sendMessage}>Send</button>
             </div>
         </div>
     );
