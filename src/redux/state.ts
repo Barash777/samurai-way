@@ -93,5 +93,16 @@ let state: StateType = {
     sidebar: {}
 }
 
+export const addPost = (postMessage: string) => {
+    // debugger
+
+    const newPost: PostPropsType = {
+        id: state.profilePage.posts.length + 1,
+        message: postMessage,
+        likeCount: 0
+    }
+
+    state.profilePage.posts.push(newPost)
+}
 
 export default state

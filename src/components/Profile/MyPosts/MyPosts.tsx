@@ -6,6 +6,7 @@ import Post, {PostPropsType} from './Post/Post';
 
 type MyPostsType = {
     posts: Array<PostPropsType>
+    addPost: (postMessage: string) => void
 }
 
 function MyPosts(props: MyPostsType) {
@@ -19,9 +20,11 @@ function MyPosts(props: MyPostsType) {
     const newPostElement = React.createRef<HTMLTextAreaElement>();
 
     const addPost = () => {
-        const text = newPostElement.current?.value;
+
+        let text = newPostElement.current?.value;
         alert(text)
-        // newPostElement.current.value = ''
+        // debugger
+        props.addPost(String(text))
     }
 
     return (
@@ -33,6 +36,7 @@ function MyPosts(props: MyPostsType) {
                 </div>
                 <div>
                     <button onClick={addPost}>Add post</button>
+                    {/*<button onClick={() => props.addPost(newPostElement.current?.value.toString())}>Add post</button>*/}
                 </div>
             </div>
             <div className={css.posts}>
