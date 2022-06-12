@@ -1,18 +1,9 @@
 import React from 'react';
 import css from './Dialogs.module.css'
-import {DialogItem, DialogItemPropsType} from './DialogItem/DialogItem';
-import {MessageItem, MessageItemPropsType} from './MessageItem/MessageItem';
-import {DialogsPageType} from '../../redux/state';
-// import state from '../../redux/state';
+import {DialogItem} from './DialogItem/DialogItem';
+import {MessageItem} from './MessageItem/MessageItem';
+import {DialogsPropsType} from '../../Types';
 
-/*type DialogsPropsType = {
-    dialogsData: Array<DialogItemPropsType>
-    messagesData: Array<MessageItemPropsType>
-}*/
-
-type DialogsPropsType = {
-    dialogsPage: DialogsPageType
-}
 
 const Dialogs = (props: DialogsPropsType) => {
 

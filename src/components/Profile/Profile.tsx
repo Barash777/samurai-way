@@ -2,12 +2,8 @@ import React from 'react';
 import MyPosts from './MyPosts/MyPosts';
 // import css from './Profile.module.css'
 import ProfileInfo from './ProfileInfo/ProfileInfo';
-import {ProfilePageType} from '../../redux/state';
+import {ProfilePropsType} from '../../Types';
 
-type ProfilePropsType = {
-    profilePage: ProfilePageType
-    addPost: (postMessage: string) => void
-}
 
 function Profile(props: ProfilePropsType) {
     return (

@@ -1,13 +1,8 @@
 import React from 'react';
 import css from './MyPosts.module.css';
-import Post, {PostPropsType} from './Post/Post';
+import {MyPostsType} from '../../../Types';
+import Post from './Post/Post';
 
-//import state from '../../../redux/state';
-
-type MyPostsType = {
-    posts: Array<PostPropsType>
-    addPost: (postMessage: string) => void
-}
 
 function MyPosts(props: MyPostsType) {
 

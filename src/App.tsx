@@ -9,12 +9,10 @@ import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import Profile from './components/Profile/Profile';
-import {StateType} from './redux/state';
+import {AppPropsType} from './Types';
 
-type AppPropsType = {
-    state: StateType
-    addPost: (postMessage: string) => void
-}
+// import {StateType} from './redux/state';
+
 
 function App(props: AppPropsType) {
     return (

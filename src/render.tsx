@@ -1,17 +1,8 @@
-// import {StateType} from './redux/state';
-
-import {/*addPost,*/ StateType} from './redux/state';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';
 import App from './App';
-// import {BrowserRouter} from 'react-router-dom';
-
-// import state, {addPost} from './redux/state';
-// import {rerenderEntireTree} from './render';
-
-// addPost('From index')
-// addPost('From index 2123')
+import {StateType} from './Types';
 
 export const rerenderEntireTree = (appState: StateType, addPost: (m: string) => void) => {
     ReactDOM.render(

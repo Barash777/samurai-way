@@ -1,24 +1,6 @@
-import {PostPropsType} from '../components/Profile/MyPosts/Post/Post';
-import {DialogItemPropsType} from '../components/Dialogs/DialogItem/DialogItem';
-import {MessageItemPropsType} from '../components/Dialogs/MessageItem/MessageItem';
 import {rerenderEntireTree} from '../render';
+import {PostPropsType, StateType} from '../Types';
 
-export type ProfilePageType = {
-    posts: Array<PostPropsType>
-}
-
-export type DialogsPageType = {
-    dialogs: Array<DialogItemPropsType>
-    messages: Array<MessageItemPropsType>
-}
-
-export type SidebarType = {}
-
-export type StateType = {
-    profilePage: ProfilePageType
-    dialogsPage: DialogsPageType
-    sidebar: SidebarType
-}
 
 let state: StateType = {
     profilePage: {
