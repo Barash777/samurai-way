@@ -21,10 +21,14 @@ function MyPosts(props: MyPostsType) {
 
     const addPost = () => {
 
-        let text = newPostElement.current?.value;
-        alert(text)
-        // debugger
-        props.addPost(String(text))
+        // let text = newPostElement.current?.value;
+        // props.addPost(String(text))
+
+        if (newPostElement.current) {
+            props.addPost(newPostElement.current.value)
+            // newPostElement.current?.value = '';
+            newPostElement.current.value = ''
+        }
     }
 
     return (

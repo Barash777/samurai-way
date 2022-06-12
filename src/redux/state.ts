@@ -1,6 +1,7 @@
 import {PostPropsType} from '../components/Profile/MyPosts/Post/Post';
 import {DialogItemPropsType} from '../components/Dialogs/DialogItem/DialogItem';
 import {MessageItemPropsType} from '../components/Dialogs/MessageItem/MessageItem';
+import {rerenderEntireTree} from '../render';
 
 export type ProfilePageType = {
     posts: Array<PostPropsType>
@@ -103,6 +104,7 @@ export const addPost = (postMessage: string) => {
     }
 
     state.profilePage.posts.push(newPost)
+    rerenderEntireTree(state)
 }
 
 export default state
