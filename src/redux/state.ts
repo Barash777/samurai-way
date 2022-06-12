@@ -25,7 +25,8 @@ let state: StateType = {
                 message: 'From state',
                 likeCount: 101
             }
-        ]
+        ],
+        newPostText: '',
     },
     dialogsPage: {
         dialogs: [
@@ -76,17 +77,25 @@ let state: StateType = {
     sidebar: {}
 }
 
-export const addPost = (postMessage: string) => {
+export const addPost = () => {
     // debugger
 
     const newPost: PostPropsType = {
         id: state.profilePage.posts.length + 1,
-        message: postMessage,
+        // message: postMessage,
+        message: state.profilePage.newPostText,
         likeCount: 0
     }
 
     state.profilePage.posts.push(newPost)
-    rerenderEntireTree(state, addPost)
+    state.profilePage.newPostText = ''
+    rerenderEntireTree(state, addPost, updateNewPostText)
 }
+
+export const updateNewPostText = (newText: string) => {
+    state.profilePage.newPostText = newText
+    rerenderEntireTree(state, addPost, updateNewPostText)
+}
+
 
 export default state

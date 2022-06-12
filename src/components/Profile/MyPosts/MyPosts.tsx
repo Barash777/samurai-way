@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import css from './MyPosts.module.css';
 import {MyPostsType} from '../../../Types';
 import Post from './Post/Post';
@@ -12,18 +12,34 @@ function MyPosts(props: MyPostsType) {
 
     const postsJSX = postsData.map(p => <Post id={p.id} message={p.message} likeCount={p.likeCount}/>)
 
-    const newPostElement = React.createRef<HTMLTextAreaElement>();
+    // const newPostElement = React.createRef<HTMLTextAreaElement>();
 
     const addPost = () => {
 
         // let text = newPostElement.current?.value;
         // props.addPost(String(text))
 
-        if (newPostElement.current) {
-            props.addPost(newPostElement.current.value)
-            // newPostElement.current?.value = '';
-            newPostElement.current.value = ''
-        }
+        props.addPost()
+
+        /*if (newPostElement.current) {
+            // props.addPost(newPostElement.current.value)
+            props.addPost()
+            // props.updateNewPostText('')
+        }*/
+    }
+
+    const onChangeTextArea = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        // console.log(newPostElement.current?.value)
+
+        // !!! не хочу прокидывать эту функцию через все компоненты !!!
+        // но сделаю это последний раз
+
+        // updateNewPostText()
+        /*if (newPostElement.current) {
+            props.updateNewPostText(newPostElement.current.value)
+        }*/
+
+        props.updateNewPostText(e.currentTarget.value)
     }
 
     return (
@@ -31,7 +47,14 @@ function MyPosts(props: MyPostsType) {
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea ref={newPostElement}></textarea>
+                    {/*<textarea ref={newPostElement} value={props.newPostText} onChange={onChangeTextArea}/>*/}
+                    <textarea
+                        value={props.newPostText}
+                        /*onChange={(e) => {
+                            props.updateNewPostText(e.currentTarget.value)
+                        }}*/
+                        onChange={onChangeTextArea}
+                    />
                 </div>
                 <div>
                     <button onClick={addPost}>Add post</button>

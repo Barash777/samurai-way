@@ -6,11 +6,13 @@ export type PostPropsType = {
 
 export type ProfilePropsType = {
     profilePage: ProfilePageType
-    addPost: (postMessage: string) => void
+    addPost: () => void
+    updateNewPostText: (newPostText: string) => void
 }
 
 export type ProfilePageType = {
     posts: Array<PostPropsType>
+    newPostText: string
 }
 
 export type DialogsPageType = {
@@ -28,7 +30,8 @@ export type StateType = {
 
 export type AppPropsType = {
     state: StateType
-    addPost: (postMessage: string) => void
+    addPost: () => void
+    updateNewPostText: (newPostText: string) => void
 }
 
 export type DialogsPropsType = {
@@ -47,5 +50,7 @@ export type DialogItemPropsType = {
 
 export type MyPostsType = {
     posts: Array<PostPropsType>
-    addPost: (postMessage: string) => void
+    newPostText: string
+    addPost: () => void
+    updateNewPostText: (newPostText: string) => void
 }
