@@ -104,7 +104,7 @@ export const addPost = (postMessage: string) => {
     }
 
     state.profilePage.posts.push(newPost)
-    rerenderEntireTree(state)
+    rerenderEntireTree(state, addPost)
 }
 
 export default state

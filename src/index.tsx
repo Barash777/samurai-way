@@ -5,7 +5,7 @@ import App from './App';
 // import {BrowserRouter} from 'react-router-dom';
 
 // import state, {addPost} from './redux/state';
-import state from './redux/state';
+import state, {addPost} from './redux/state';
 import {rerenderEntireTree} from './render';
 // import {rerenderEntireTree} from './render';
 
@@ -19,4 +19,4 @@ import {rerenderEntireTree} from './render';
     );
 }*/
 
-rerenderEntireTree(state)
+rerenderEntireTree(state, addPost)

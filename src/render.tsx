@@ -1,6 +1,6 @@
 // import {StateType} from './redux/state';
 
-import {addPost, StateType} from './redux/state';
+import {/*addPost,*/ StateType} from './redux/state';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';
@@ -13,7 +13,7 @@ import App from './App';
 // addPost('From index')
 // addPost('From index 2123')
 
-export const rerenderEntireTree = (appState: StateType/*, addPost: any*/) => {
+export const rerenderEntireTree = (appState: StateType, addPost: (m: string) => void) => {
     ReactDOM.render(
         <App state={appState} addPost={addPost}/>,
         document.getElementById('root')
