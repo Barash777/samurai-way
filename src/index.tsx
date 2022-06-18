@@ -2,21 +2,25 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';
 import App from './App';
-// import {BrowserRouter} from 'react-router-dom';
 
-// import state, {addPost} from './redux/state';
-import state, {addPost, updateNewPostText} from './redux/state';
-import {rerenderEntireTree} from './render';
-// import {rerenderEntireTree} from './render';
+import state, {addPost, subscribe, updateNewPostText} from './redux/state';
+import {StateType} from './Types';
 
-// addPost('From index')
-// addPost('From index 2123')
 
-/*export const rerenderEntireTree = (appState: StateType, addPost: any) => {
+export const rerenderEntireTree = (appState: StateType
+                                   /*appState: StateType,
+                                  addPost: () => void,
+                                  updateNewPostText: (text: string) => void*/) => {
     ReactDOM.render(
-        <App state={appState} addPost={addPost}/>,
+        <App
+            state={appState}
+            addPost={addPost}
+            updateNewPostText={updateNewPostText}
+        />,
         document.getElementById('root')
     );
-}*/
+}
 
-rerenderEntireTree(state, addPost, updateNewPostText)
+rerenderEntireTree(state)
+
+subscribe(rerenderEntireTree)
