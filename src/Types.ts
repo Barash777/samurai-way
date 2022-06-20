@@ -19,13 +19,17 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     dialogs: Array<DialogItemPropsType>
     messages: Array<MessageItemPropsType>
+    newMessageText: string
 }
 
 export type SidebarType = {}
 
-export type ActionNameType = 'ADD-POST' | 'UPDATE-NEW-POST-TEXT'
+export type ActionNameType = 'ADD-POST' | 'UPDATE-NEW-POST-TEXT' | 'UPDATE-NEW-MESSAGE-TEXT'
 
-export type AllActionsType = AddPostActionType | UpdateNewPostTextActionType
+export type AllActionsType = AddPostActionType |
+    UpdateNewPostTextActionType |
+    UpdateNewMessageTextActionType |
+    AddMessageActionType
 
 /*export type ActionType = {
     type: ActionNameType,
@@ -39,6 +43,15 @@ export type AddPostActionType = {
 export type UpdateNewPostTextActionType = {
     type: 'UPDATE-NEW-POST-TEXT'
     newText: string
+}
+
+export type UpdateNewMessageTextActionType = {
+    type: 'UPDATE-NEW-MESSAGE-TEXT'
+    newText: string
+}
+
+export type AddMessageActionType = {
+    type: 'ADD-MESSAGE'
 }
 
 export type StoreType = {
@@ -67,6 +80,8 @@ export type AppPropsType = {
 
 export type DialogsPropsType = {
     dialogsPage: DialogsPageType
+    newMessageText: string
+    dispatch: (action: AllActionsType) => void
 }
 
 export type MessageItemPropsType = {

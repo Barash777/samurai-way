@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 
 import './css/App.css';
 import Header from './components/Header/Header';
@@ -16,36 +16,35 @@ import {AppPropsType} from './Types';
 
 function App(props: AppPropsType) {
     return (
-        <BrowserRouter>
-            <div className="app-wrapper">
-                <Header/>
-                <Sidebar/>
+        <div className="app-wrapper">
+            <Header/>
+            <Sidebar/>
 
-                <div className="app-wrapper-content">
-                    {/*<Route path="/dialogs" component={Dialogs}/>
+            <div className="app-wrapper-content">
+                {/*<Route path="/dialogs" component={Dialogs}/>
                     <Route path="/profile" component={Profile}/>
                     <Route path="/news" component={News}/>
                     <Route path="/music" component={Music}/>
                     <Route path="/settings" component={Settings}/>*/}
 
-                    {/*<Route path="/dialogs" render={() => <Dialogs messagesData={props.state.dialogsPage.messages}
+                {/*<Route path="/dialogs" render={() => <Dialogs messagesData={props.state.dialogsPage.messages}
                                                                   dialogsData={props.state.dialogsPage.dialogs}/>}/>*/}
-                    <Route path="/dialogs" render={() => <Dialogs
-                        dialogsPage={props.state.dialogsPage}
-                    />}/>
-                    <Route path="/profile" render={() => <Profile
-                        profilePage={props.state.profilePage}
-                        dispatch={props.dispatch}
-                        // addPost={props.addPost}
-                        // updateNewPostText={props.updateNewPostText}
-                    />}/>
-                    <Route path="/news" render={() => <News/>}/>
-                    <Route path="/music" render={() => <Music/>}/>
-                    <Route path="/settings" render={() => <Settings/>}/>
-                </div>
-
+                <Route path="/dialogs" render={() => <Dialogs
+                    dialogsPage={props.state.dialogsPage}
+                    newMessageText={props.state.dialogsPage.newMessageText}
+                    dispatch={props.dispatch}
+                />}/>
+                <Route path="/profile" render={() => <Profile
+                    profilePage={props.state.profilePage}
+                    dispatch={props.dispatch}
+                    // addPost={props.addPost}
+                    // updateNewPostText={props.updateNewPostText}
+                />}/>
+                <Route path="/news" render={() => <News/>}/>
+                <Route path="/music" render={() => <Music/>}/>
+                <Route path="/settings" render={() => <Settings/>}/>
             </div>
-        </BrowserRouter>
+        </div>
     );
 }
 
