@@ -2,6 +2,7 @@ import React, {ChangeEvent} from 'react';
 import css from './MyPosts.module.css';
 import {MyPostsType} from '../../../Types';
 import Post from './Post/Post';
+import {addPostActionCreator, updateNewPostTextActionCreator} from '../../../redux/state';
 
 
 function MyPosts(props: MyPostsType) {
@@ -19,11 +20,8 @@ function MyPosts(props: MyPostsType) {
         // let text = newPostElement.current?.value;
         // props.addPost(String(text))
 
-        props.dispatch(
-            {
-                type: 'ADD-POST'
-            }
-        )
+        // props.dispatch({type: 'ADD-POST'})
+        props.dispatch(addPostActionCreator())
 
         /*if (newPostElement.current) {
             // props.addPost(newPostElement.current.value)
@@ -44,13 +42,15 @@ function MyPosts(props: MyPostsType) {
         }*/
 
         // props.updateNewPostText(e.currentTarget.value)
-        
-        props.dispatch(
+
+        /*props.dispatch(
             {
                 type: 'UPDATE-NEW-POST-TEXT',
                 newText: e.currentTarget.value
             }
-        )
+        )*/
+
+        props.dispatch(updateNewPostTextActionCreator(e.currentTarget.value))
     }
 
     return (

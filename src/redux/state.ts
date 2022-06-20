@@ -1,4 +1,4 @@
-import {PostPropsType, StoreType} from '../Types';
+import {AddPostActionType, PostPropsType, StoreType, UpdateNewPostTextActionType} from '../Types';
 
 
 let store: StoreType = {
@@ -124,3 +124,28 @@ let store: StoreType = {
 }
 
 export default store
+
+// create TYPE based on fn return
+/*
+export type testType = ReturnType<typeof testFn>
+export const testFn = (text: string, age: number) => {
+    return {
+        type: 'ADD-POST',
+        text: text,
+        age: age
+    } as const
+}
+*/
+
+export const addPostActionCreator = (): AddPostActionType => {
+    return {
+        type: 'ADD-POST'
+    }
+}
+
+export const updateNewPostTextActionCreator = (newText: string): UpdateNewPostTextActionType => {
+    return {
+        type: 'UPDATE-NEW-POST-TEXT',
+        newText: newText
+    }
+}
