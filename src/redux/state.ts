@@ -76,30 +76,50 @@ let store: StoreType = {
         },
         sidebar: {}
     },
-    getState() {
-        return this._state
-    },
     _callSubscriber() {
         console.log('state changed')
     },
-    addPost() {
-        const newPost: PostPropsType = {
-            id: this._state.profilePage.posts.length + 1,
-            // message: postMessage,
-            message: this._state.profilePage.newPostText,
-            likeCount: 0
-        }
 
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostText = ''
-        this._callSubscriber()
-    },
-    updateNewPostText(newText) {
-        this._state.profilePage.newPostText = newText
-        this._callSubscriber()
+    getState() {
+        return this._state
     },
     subscribe(observer) {
         this._callSubscriber = observer
+    },
+
+    // addPost() {
+    //     const newPost: PostPropsType = {
+    //         id: this._state.profilePage.posts.length + 1,
+    //         // message: postMessage,
+    //         message: this._state.profilePage.newPostText,
+    //         likeCount: 0
+    //     }
+    //
+    //     this._state.profilePage.posts.push(newPost)
+    //     this._state.profilePage.newPostText = ''
+    //     this._callSubscriber()
+    // },
+    // updateNewPostText(newText) {
+    //     this._state.profilePage.newPostText = newText
+    //     this._callSubscriber()
+    // },
+
+    dispatch(action) { // type is required
+        if (action.type === 'ADD-POST') {
+            const newPost: PostPropsType = {
+                id: this._state.profilePage.posts.length + 1,
+                // message: postMessage,
+                message: this._state.profilePage.newPostText,
+                likeCount: 0
+            }
+
+            this._state.profilePage.posts.push(newPost)
+            this._state.profilePage.newPostText = ''
+            this._callSubscriber()
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT'/* && (action.newText || action.newText === '')*/) {
+            this._state.profilePage.newPostText = action.newText
+            this._callSubscriber()
+        }
     }
 }
 

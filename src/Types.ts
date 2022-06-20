@@ -6,8 +6,9 @@ export type PostPropsType = {
 
 export type ProfilePropsType = {
     profilePage: ProfilePageType
-    addPost: () => void
-    updateNewPostText: (newPostText: string) => void
+    dispatch: (action: AllActionsType) => void
+    // addPost: () => void
+    // updateNewPostText: (newPostText: string) => void
 }
 
 export type ProfilePageType = {
@@ -22,14 +23,32 @@ export type DialogsPageType = {
 
 export type SidebarType = {}
 
+export type ActionNameType = 'ADD-POST' | 'UPDATE-NEW-POST-TEXT'
+
+export type AllActionsType = AddPostActionType | UpdateNewPostTextActionType
+
+/*export type ActionType = {
+    type: ActionNameType,
+    // newText?: string
+}*/
+
+export type AddPostActionType = {
+    type: 'ADD-POST'
+}
+
+export type UpdateNewPostTextActionType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newText: string
+}
 
 export type StoreType = {
     _state: StateType
     getState: () => StateType
     _callSubscriber: () => void
-    addPost: () => void
-    updateNewPostText: (newText: string) => void
+    // addPost: () => void
+    // updateNewPostText: (newText: string) => void
     subscribe: (observer: () => void) => void
+    dispatch: (action: AllActionsType) => void
 }
 
 
@@ -41,8 +60,9 @@ export type StateType = {
 
 export type AppPropsType = {
     state: StateType
-    addPost: () => void
-    updateNewPostText: (newPostText: string) => void
+    dispatch: (action: AllActionsType) => void
+    // addPost: () => void
+    // updateNewPostText: (newPostText: string) => void
 }
 
 export type DialogsPropsType = {
@@ -62,6 +82,7 @@ export type DialogItemPropsType = {
 export type MyPostsType = {
     posts: Array<PostPropsType>
     newPostText: string
-    addPost: () => void
-    updateNewPostText: (newPostText: string) => void
+    dispatch: (action: AllActionsType) => void
+    // addPost: () => void
+    // updateNewPostText: (newPostText: string) => void
 }

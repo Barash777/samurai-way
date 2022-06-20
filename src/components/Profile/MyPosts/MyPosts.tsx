@@ -19,7 +19,11 @@ function MyPosts(props: MyPostsType) {
         // let text = newPostElement.current?.value;
         // props.addPost(String(text))
 
-        props.addPost()
+        props.dispatch(
+            {
+                type: 'ADD-POST'
+            }
+        )
 
         /*if (newPostElement.current) {
             // props.addPost(newPostElement.current.value)
@@ -39,7 +43,14 @@ function MyPosts(props: MyPostsType) {
             props.updateNewPostText(newPostElement.current.value)
         }*/
 
-        props.updateNewPostText(e.currentTarget.value)
+        // props.updateNewPostText(e.currentTarget.value)
+        
+        props.dispatch(
+            {
+                type: 'UPDATE-NEW-POST-TEXT',
+                newText: e.currentTarget.value
+            }
+        )
     }
 
     return (
