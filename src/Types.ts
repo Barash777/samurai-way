@@ -22,6 +22,17 @@ export type DialogsPageType = {
 
 export type SidebarType = {}
 
+
+export type StoreType = {
+    _state: StateType
+    getState: () => StateType
+    _callSubscriber: () => void
+    addPost: () => void
+    updateNewPostText: (newText: string) => void
+    subscribe: (observer: () => void) => void
+}
+
+
 export type StateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType

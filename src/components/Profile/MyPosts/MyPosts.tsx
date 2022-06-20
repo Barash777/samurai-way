@@ -10,7 +10,7 @@ function MyPosts(props: MyPostsType) {
     //const postsData: Array<PostPropsType> = state.profilePage.posts;
     const postsData = props.posts;
 
-    const postsJSX = postsData.map(p => <Post id={p.id} message={p.message} likeCount={p.likeCount}/>)
+    const postsJSX = postsData.map(p => <Post key={p.id} id={p.id} message={p.message} likeCount={p.likeCount}/>)
 
     // const newPostElement = React.createRef<HTMLTextAreaElement>();
 

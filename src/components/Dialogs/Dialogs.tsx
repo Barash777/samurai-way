@@ -13,8 +13,8 @@ const Dialogs = (props: DialogsPropsType) => {
     const dialogsData = props.dialogsPage.dialogs;
     const messagesData = props.dialogsPage.messages;
 
-    const dialogsJSX = dialogsData.map(d => <DialogItem name={d.name} id={d.id}/>)
-    const messagesJSX = messagesData.map(m => <MessageItem text={m.text} id={m.id}/>)
+    const dialogsJSX = dialogsData.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
+    const messagesJSX = messagesData.map(m => <MessageItem key={m.id} text={m.text} id={m.id}/>)
 
     const textAreaRef = React.createRef<HTMLTextAreaElement>();
 
