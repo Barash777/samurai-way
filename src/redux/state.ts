@@ -1,11 +1,7 @@
-import {
-    AddMessageActionType,
-    AddPostActionType, MessageItemPropsType,
-    PostPropsType,
-    StoreType,
-    UpdateNewMessageTextActionType,
-    UpdateNewPostTextActionType
-} from '../Types';
+import {StoreType} from '../Types';
+import profileReducer from './profileReducer';
+import dialogsReducer from './dialogsReducer';
+import sidebarReducer from './sidebarReducer';
 
 
 let store: StoreType = {
@@ -95,52 +91,13 @@ let store: StoreType = {
         this._callSubscriber = observer
     },
 
-    // addPost() {
-    //     const newPost: PostPropsType = {
-    //         id: this._state.profilePage.posts.length + 1,
-    //         // message: postMessage,
-    //         message: this._state.profilePage.newPostText,
-    //         likeCount: 0
-    //     }
-    //
-    //     this._state.profilePage.posts.push(newPost)
-    //     this._state.profilePage.newPostText = ''
-    //     this._callSubscriber()
-    // },
-    // updateNewPostText(newText) {
-    //     this._state.profilePage.newPostText = newText
-    //     this._callSubscriber()
-    // },
-
     dispatch(action) { // type is required
-        if (action.type === 'ADD-POST') {
-            const newPost: PostPropsType = {
-                id: this._state.profilePage.posts.length + 1,
-                // message: postMessage,
-                message: this._state.profilePage.newPostText,
-                likeCount: 0
-            }
 
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.newPostText = ''
-            this._callSubscriber()
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT'/* && (action.newText || action.newText === '')*/) {
-            this._state.profilePage.newPostText = action.newText
-            this._callSubscriber()
-        } else if (action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
-            this._state.dialogsPage.newMessageText = action.newText
-            this._callSubscriber()
-        } else if (action.type === 'ADD-MESSAGE') {
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action);
 
-            const newMessage: MessageItemPropsType = {
-                id: this._state.dialogsPage.messages.length + 1,
-                text: this._state.dialogsPage.newMessageText
-            }
-
-            this._state.dialogsPage.messages.push(newMessage)
-            this._state.dialogsPage.newMessageText = ''
-            this._callSubscriber()
-        }
+        this._callSubscriber();
     }
 }
 
@@ -157,29 +114,3 @@ export const testFn = (text: string, age: number) => {
     } as const
 }
 */
-
-export const addPostActionCreator = (): AddPostActionType => {
-    return {
-        type: 'ADD-POST'
-    }
-}
-
-export const updateNewPostTextActionCreator = (newText: string): UpdateNewPostTextActionType => {
-    return {
-        type: 'UPDATE-NEW-POST-TEXT',
-        newText: newText
-    }
-}
-
-export const updateNewMessageTextActionCreator = (newText: string): UpdateNewMessageTextActionType => {
-    return {
-        type: 'UPDATE-NEW-MESSAGE-TEXT',
-        newText: newText
-    }
-}
-
-export const addMessageActionCreator = (): AddMessageActionType => {
-    return {
-        type: 'ADD-MESSAGE'
-    }
-}
