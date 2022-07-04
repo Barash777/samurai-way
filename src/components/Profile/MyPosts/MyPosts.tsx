@@ -2,7 +2,7 @@ import React, {ChangeEvent} from 'react';
 import css from './MyPosts.module.css';
 import {MyPostsType} from '../../../Types';
 import Post from './Post/Post';
-import {addPostActionCreator, updateNewPostTextActionCreator} from '../../../redux/profileReducer';
+import {addPostAC, updateNewPostTextAC} from '../../../redux/profileReducer';
 
 
 function MyPosts(props: MyPostsType) {
@@ -21,7 +21,7 @@ function MyPosts(props: MyPostsType) {
         // props.addPost(String(text))
 
         // props.dispatch({type: 'ADD-POST'})
-        props.dispatch(addPostActionCreator())
+        props.dispatch(addPostAC())
 
         /*if (newPostElement.current) {
             // props.addPost(newPostElement.current.value)
@@ -50,7 +50,7 @@ function MyPosts(props: MyPostsType) {
             }
         )*/
 
-        props.dispatch(updateNewPostTextActionCreator(e.currentTarget.value))
+        props.dispatch(updateNewPostTextAC(e.currentTarget.value))
     }
 
     return (

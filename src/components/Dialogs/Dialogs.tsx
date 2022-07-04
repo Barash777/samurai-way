@@ -3,7 +3,7 @@ import css from './Dialogs.module.css'
 import {DialogItem} from './DialogItem/DialogItem';
 import {MessageItem} from './MessageItem/MessageItem';
 import {DialogsPropsType} from '../../Types';
-import {addMessageActionCreator, updateNewMessageTextActionCreator} from '../../redux/dialogsReducer';
+import {addMessageAC, updateNewMessageTextAC} from '../../redux/dialogsReducer';
 
 
 const Dialogs = (props: DialogsPropsType) => {
@@ -22,12 +22,12 @@ const Dialogs = (props: DialogsPropsType) => {
     const sendMessage = () => {
         // alert(textAreaRef.current?.value)
         // alert(props.newMessageText)
-        props.dispatch(addMessageActionCreator())
+        props.dispatch(addMessageAC())
     }
 
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const text = e.currentTarget.value
-        props.dispatch(updateNewMessageTextActionCreator(text))
+        props.dispatch(updateNewMessageTextAC(text))
         // alert(text)
     }
 
