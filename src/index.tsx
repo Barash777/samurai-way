@@ -5,21 +5,29 @@ import App from './App';
 // import store from './redux/store';
 import store from './redux/redux-store';
 import {BrowserRouter} from 'react-router-dom';
-
+import StoreContext from './StoreContext';
 
 export const rerenderEntireTree = () => {
     ReactDOM.render(
         <BrowserRouter>
-            <App
-                state={store.getState()}
-                dispatch={store.dispatch.bind(store)}
-                // addPost={store.addPost.bind(store)}
-                // updateNewPostText={store.updateNewPostText.bind(store)}
-            />
+            <StoreContext.Provider value={store}>
+                <App/>
+            </StoreContext.Provider>
         </BrowserRouter>,
         document.getElementById('root')
     );
 }
+
+/*export const rerenderEntireTree = () => {
+    ReactDOM.render(
+        <BrowserRouter>
+            <Provider store={store}>
+                <App/>
+            </Provider>
+        </BrowserRouter>,
+        document.getElementById('root')
+    );
+}*/
 
 rerenderEntireTree()
 

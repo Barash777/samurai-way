@@ -1,6 +1,6 @@
 import {AllActionsType, SidebarType} from '../Types';
 
-const initialState = {}
+const initialState: SidebarType = {}
 
 const sidebarReducer = (state: SidebarType = initialState, action: AllActionsType) => {
 

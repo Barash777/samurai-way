@@ -1,6 +1,6 @@
 import {AddPostActionType, AllActionsType, PostPropsType, ProfilePageType, UpdateNewPostTextActionType} from '../Types';
 
-const initialState = {
+const initialState: ProfilePageType = {
     posts: [
         {
             id: 1,

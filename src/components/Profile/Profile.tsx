@@ -1,21 +1,13 @@
 import React from 'react';
-import MyPosts from './MyPosts/MyPosts';
-// import css from './Profile.module.css'
 import ProfileInfo from './ProfileInfo/ProfileInfo';
-import {ProfilePropsType} from '../../Types';
+import MyPostsContainer from './MyPosts/MyPostsContainer';
 
 
-function Profile(props: ProfilePropsType) {
+function Profile() {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts
-                posts={props.profilePage.posts}
-                newPostText={props.profilePage.newPostText}
-                dispatch={props.dispatch}
-                // addPost={props.addPost}
-                // updateNewPostText={props.updateNewPostText}
-            />
+            <MyPostsContainer/>
         </div>
     );
 }

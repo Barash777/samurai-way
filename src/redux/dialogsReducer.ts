@@ -6,7 +6,7 @@ import {
     UpdateNewMessageTextActionType
 } from '../Types';
 
-const initialState = {
+const initialState: DialogsPageType = {
     dialogs: [
         {
             name: 'Olga',

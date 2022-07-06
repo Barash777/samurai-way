@@ -1,3 +1,5 @@
+import React from 'react';
+
 export type PostPropsType = {
     id: number
     message: string
@@ -5,11 +7,28 @@ export type PostPropsType = {
 }
 
 export type ProfilePropsType = {
-    profilePage: ProfilePageType
-    dispatch: (action: AllActionsType) => void
+    // profilePage: ProfilePageType
+    // dispatch: (action: AllActionsType) => void
     // addPost: () => void
     // updateNewPostText: (newPostText: string) => void
 }
+
+export type MyPostsType = {
+    posts: Array<PostPropsType>
+    newPostText: string
+    // dispatch: (action: AllActionsType) => void
+    addPost: () => void
+    updateNewPostText: (newPostText: string) => void
+}
+
+export type MyPostsContainerType = {
+    // posts: Array<PostPropsType>
+    // newPostText: string
+    // dispatch: (action: AllActionsType) => void
+    // addPost: () => void
+    // updateNewPostText: (newPostText: string) => void
+}
+
 
 export type ProfilePageType = {
     posts: Array<PostPropsType>
@@ -72,8 +91,8 @@ export type StateType = {
 }
 
 export type AppPropsType = {
-    state: StateType
-    dispatch: (action: AllActionsType) => void
+    // state: StateType
+    // dispatch: (action: AllActionsType) => void
     // addPost: () => void
     // updateNewPostText: (newPostText: string) => void
 }
@@ -81,7 +100,8 @@ export type AppPropsType = {
 export type DialogsPropsType = {
     dialogsPage: DialogsPageType
     newMessageText: string
-    dispatch: (action: AllActionsType) => void
+    sendMessage: () => void
+    onChangeMessage: (text: string) => void
 }
 
 export type MessageItemPropsType = {
@@ -94,10 +114,7 @@ export type DialogItemPropsType = {
     id: number
 }
 
-export type MyPostsType = {
-    posts: Array<PostPropsType>
-    newPostText: string
-    dispatch: (action: AllActionsType) => void
-    // addPost: () => void
-    // updateNewPostText: (newPostText: string) => void
+export type ProviderType = {
+    store: StoreType
+    children: React.ReactNode
 }
