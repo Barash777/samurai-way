@@ -10,8 +10,6 @@ import Settings from './components/Settings/Settings';
 import Profile from './components/Profile/Profile';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 
-// import {StateType} from './redux/state';
-
 
 function App() {
     return (
