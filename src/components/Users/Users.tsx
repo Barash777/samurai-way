@@ -44,7 +44,19 @@ import defaultAvatar from '../../assets/images/default_avatar.png'
 
 const Users = (props: UsersPropsType) => {
 
-    if (props.users.length === 0) {
+    const getUsers = () => {
+        if (props.users.length === 0) {
+            axios
+                .get('https://social-network.samuraijs.com/api/1.0/users')
+                .then(response => {
+                    const users = response.data.items
+                    console.log(users)
+                    props.setUsers(users)
+                });
+        }
+    }
+
+    /*if (props.users.length === 0) {
         axios
             .get('https://social-network.samuraijs.com/api/1.0/users')
             .then(response => {
@@ -52,7 +64,7 @@ const Users = (props: UsersPropsType) => {
                 console.log(users)
                 props.setUsers(users)
             });
-    }
+    }*/
 
     const usersJSX = props.users.map(u => (
         <div key={u.id}>
@@ -81,7 +93,9 @@ const Users = (props: UsersPropsType) => {
 
     return (
         <div>
-            <div>Users:</div>
+            <div>
+                <button onClick={getUsers}>Get users</button>
+            </div>
             {usersJSX}
         </div>
     );
