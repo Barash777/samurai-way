@@ -26,7 +26,7 @@ const initialState: ProfilePageType = {
     newPostText: '',
 }
 
-const profileReducer = (state: ProfilePageType = initialState, action: AllActionsType) => {
+const profileReducer = (state: ProfilePageType = initialState, action: AllActionsType): ProfilePageType => {
 
     switch (action.type) {
         case 'ADD-POST':

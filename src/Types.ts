@@ -6,29 +6,6 @@ export type PostPropsType = {
     likeCount: number
 }
 
-export type ProfilePropsType = {
-    // profilePage: ProfilePageType
-    // dispatch: (action: AllActionsType) => void
-    // addPost: () => void
-    // updateNewPostText: (newPostText: string) => void
-}
-
-export type MyPostsType = {
-    posts: Array<PostPropsType>
-    newPostText: string
-    // dispatch: (action: AllActionsType) => void
-    addPost: () => void
-    updateNewPostText: (newPostText: string) => void
-}
-
-export type MyPostsContainerType = {
-    // posts: Array<PostPropsType>
-    // newPostText: string
-    // dispatch: (action: AllActionsType) => void
-    // addPost: () => void
-    // updateNewPostText: (newPostText: string) => void
-}
-
 
 export type ProfilePageType = {
     posts: Array<PostPropsType>
@@ -43,17 +20,13 @@ export type DialogsPageType = {
 
 export type SidebarType = {}
 
-export type ActionNameType = 'ADD-POST' | 'UPDATE-NEW-POST-TEXT' | 'UPDATE-NEW-MESSAGE-TEXT'
+// export type ActionNameType = 'ADD-POST' | 'UPDATE-NEW-POST-TEXT' | 'UPDATE-NEW-MESSAGE-TEXT' | 'ADD-MESSAGE'
 
 export type AllActionsType = AddPostActionType |
     UpdateNewPostTextActionType |
     UpdateNewMessageTextActionType |
     AddMessageActionType
 
-/*export type ActionType = {
-    type: ActionNameType,
-    // newText?: string
-}*/
 
 export type AddPostActionType = {
     type: 'ADD-POST'
@@ -73,6 +46,9 @@ export type AddMessageActionType = {
     type: 'ADD-MESSAGE'
 }
 
+export type DispatchType = (action: AllActionsType) => void
+
+
 export type StoreType = {
     _state: StateType
     getState: () => StateType
@@ -80,7 +56,7 @@ export type StoreType = {
     // addPost: () => void
     // updateNewPostText: (newText: string) => void
     subscribe: (observer: () => void) => void
-    dispatch: (action: AllActionsType) => void
+    dispatch: DispatchType
 }
 
 
@@ -88,13 +64,6 @@ export type StateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar: SidebarType
-}
-
-export type AppPropsType = {
-    // state: StateType
-    // dispatch: (action: AllActionsType) => void
-    // addPost: () => void
-    // updateNewPostText: (newPostText: string) => void
 }
 
 export type DialogsPropsType = {

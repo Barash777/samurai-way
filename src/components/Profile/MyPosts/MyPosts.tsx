@@ -1,10 +1,11 @@
 import React, {ChangeEvent} from 'react';
 import css from './MyPosts.module.css';
-import {MyPostsType} from '../../../Types';
+// import {MyPostsType} from '../../../Types';
 import Post from './Post/Post';
+import {MyPostsPropsType} from './MyPostsContainer';
 
 
-function MyPosts(props: MyPostsType) {
+function MyPosts(props: MyPostsPropsType) {
 
     const postsData = props.posts;
     const postsJSX = postsData.map(p => <Post key={p.id} id={p.id} message={p.message} likeCount={p.likeCount}/>)
