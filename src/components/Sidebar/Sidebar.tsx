@@ -8,19 +8,29 @@ function Sidebar() {
     return (
         <nav className={css.sidebar}>
             <div className={css.item}>
-                <NavLink to="/profile" activeClassName={css.active}>Profile</NavLink>
+                <NavLink to="/profile" className={({isActive}) =>
+                    isActive ? css.active : ''
+                }>Profile</NavLink>
             </div>
             <div className={css.item}>
-                <NavLink to="/dialogs" activeClassName={css.active}>Messages</NavLink>
+                <NavLink to="/dialogs" className={({isActive}) =>
+                    isActive ? css.active : ''
+                }>Messages</NavLink>
             </div>
             <div className={css.item}>
-                <NavLink to="/news" activeClassName={css.active}>News</NavLink>
+                <NavLink to="/news" className={({isActive}) =>
+                    isActive ? css.active : ''
+                }>News</NavLink>
             </div>
             <div className={css.item}>
-                <NavLink to="/music" activeClassName={css.active}>Music</NavLink>
+                <NavLink to="/music" className={({isActive}) =>
+                    isActive ? css.active : ''
+                }>Music</NavLink>
             </div>
             <div className={css.item}>
-                <NavLink to="/settings" activeClassName={css.active}>Settings</NavLink>
+                <NavLink to="/settings" className={({isActive}) =>
+                    isActive ? css.active : ''
+                }>Settings</NavLink>
             </div>
         </nav>
     );

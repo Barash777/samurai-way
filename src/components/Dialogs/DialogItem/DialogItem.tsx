@@ -8,7 +8,9 @@ export const DialogItem = (props: DialogItemPropsType) => {
 
     return (
         <div key={props.id} className={css.dialogItem}>
-            <NavLink to={path} activeClassName={css.active}>{props.name}</NavLink>
+            <NavLink to={path} className={({isActive}) =>
+                isActive ? css.active : ''
+            }>{props.name}</NavLink>
         </div>
     )
 }
