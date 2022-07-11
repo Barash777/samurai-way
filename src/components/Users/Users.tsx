@@ -1,14 +1,17 @@
 import React from 'react';
 import {UsersPropsType} from './UsersContainer';
 import css from './Users.module.css'
-import {UserType} from '../../redux/usersReducer';
+// import {UserType} from '../../redux/usersReducer';
+import axios from 'axios';
+// import * as axios from 'axios'
+import defaultAvatar from '../../assets/images/default_avatar.png'
 
-const arrayUsers: Array<UserType> = [
+/*const arrayUsers: Array<UserType> = [
     {
         id: 1,
         photoURL: 'https://pngimg.com/uploads/minions/small/minions_PNG60.png',
         followed: true,
-        fullName: 'Eric',
+        name: 'Eric',
         status: 'tra lala al',
         location: {
             city: 'Minsk',
@@ -19,7 +22,7 @@ const arrayUsers: Array<UserType> = [
         id: 2,
         photoURL: 'https://pngimg.com/uploads/minions/minions_PNG75.png',
         followed: false,
-        fullName: 'Oleg',
+        name: 'Oleg',
         status: '... trsdf a lala al',
         location: {
             city: 'Kiev',
@@ -30,26 +33,32 @@ const arrayUsers: Array<UserType> = [
         id: 3,
         photoURL: 'https://pngimg.com/uploads/minions/small/minions_PNG86.png',
         followed: true,
-        fullName: 'Ivan',
+        name: 'Ivan',
         status: '!!! --- !!!',
         location: {
             city: 'Moscow',
             country: 'Russia'
         }
     }
-]
+]*/
 
 const Users = (props: UsersPropsType) => {
 
     if (props.users.length === 0) {
-        props.setUsers(arrayUsers)
+        axios
+            .get('https://social-network.samuraijs.com/api/1.0/users')
+            .then(response => {
+                const users = response.data.items
+                console.log(users)
+                props.setUsers(users)
+            });
     }
 
     const usersJSX = props.users.map(u => (
         <div key={u.id}>
             <span>
                 <div>
-                    <img src={u.photoURL} className={css.avatar}/>
+                    <img src={u.photos.small ?? defaultAvatar} className={css.avatar}/>
                 </div>
                 <div>
                     <button onClick={() => {
@@ -59,12 +68,12 @@ const Users = (props: UsersPropsType) => {
             </span>
             <span>
                 <span>
-                    <div>{u.fullName}</div>
+                    <div>{u.name}</div>
                     <div>{u.status}</div>
                 </span>
                 <span>
-                    <div>{u.location.country}</div>
-                    <div>{u.location.city}</div>
+                    <div>{'u.location.country'}</div>
+                    <div>{'u.location.city'}</div>
                 </span>
             </span>
         </div>
