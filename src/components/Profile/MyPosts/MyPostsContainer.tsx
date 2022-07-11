@@ -1,9 +1,7 @@
 // import React from 'react';
-import {addPostAC, updateNewPostTextAC} from '../../../redux/profileReducer';
+import {addPostAC, PostType, updateNewPostTextAC} from '../../../redux/profileReducer';
 import MyPosts from './MyPosts';
-// import StoreContext from '../../../StoreContext';
 import {connect} from 'react-redux';
-import {DialogsPageType, DispatchType, PostPropsType, ProfilePageType, StateType} from '../../../Types';
 import {AppStateType} from '../../../redux/redux-store';
 import {Dispatch} from 'redux';
 
@@ -37,7 +35,7 @@ import {Dispatch} from 'redux';
 }*/
 
 type MapStateToPropsType = {
-    posts: Array<PostPropsType>
+    posts: Array<PostType>
     newPostText: string
 }
 

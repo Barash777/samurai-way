@@ -1,10 +1,9 @@
-import {StoreType} from '../Types';
 import profileReducer from './profileReducer';
 import dialogsReducer from './dialogsReducer';
 import sidebarReducer from './sidebarReducer';
 
 
-let store: StoreType = {
+/*let store: AppStoreType = {
     _state: {
         profilePage: {
             posts: [
@@ -99,8 +98,9 @@ let store: StoreType = {
 
         this._callSubscriber();
     }
-}
+}*/
 
+const store = {}
 export default store
 
 // create TYPE based on fn return

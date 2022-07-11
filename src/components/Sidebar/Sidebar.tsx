@@ -18,6 +18,11 @@ function Sidebar() {
                 }>Messages</NavLink>
             </div>
             <div className={css.item}>
+                <NavLink to="/users" className={({isActive}) =>
+                    isActive ? css.active : ''
+                }>Users</NavLink>
+            </div>
+            <div className={css.item}>
                 <NavLink to="/news" className={({isActive}) =>
                     isActive ? css.active : ''
                 }>News</NavLink>

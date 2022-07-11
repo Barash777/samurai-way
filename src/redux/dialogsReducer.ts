@@ -1,12 +1,14 @@
-import {
-    AddMessageActionType,
-    AllActionsType,
-    DialogsPageType,
-    MessageItemPropsType,
-    UpdateNewMessageTextActionType
-} from '../Types';
+export type MessageItemType = {
+    text: string,
+    id: number
+}
 
-const initialState: DialogsPageType = {
+export type DialogItemType = {
+    name: string,
+    id: number
+}
+
+const initialState = {
     dialogs: [
         {
             name: 'Olga',
@@ -28,7 +30,7 @@ const initialState: DialogsPageType = {
             name: 'Elena',
             id: 5
         }
-    ],
+    ] as Array<DialogItemType>,
     messages: [
         {
             id: 1,
@@ -50,37 +52,44 @@ const initialState: DialogsPageType = {
             id: 5,
             text: 'From state',
         }
-    ],
+    ] as Array<MessageItemType>,
     newMessageText: ''
 }
 
-const dialogsReducer = (state: DialogsPageType = initialState, action: AllActionsType): DialogsPageType => {
+export type DialogsInitialStateType = typeof initialState
+
+const dialogsReducer = (state: DialogsInitialStateType = initialState, action: DialogsUnionACType): DialogsInitialStateType => {
 
     switch (action.type) {
         case 'UPDATE-NEW-MESSAGE-TEXT':
             return {...state, newMessageText: action.newText}
         case 'ADD-MESSAGE':
-            const newMessage: MessageItemPropsType = {
+            const newMessage: MessageItemType = {
                 id: state.messages.length + 1,
                 text: state.newMessageText
             }
             return {...state, messages: [...state.messages, newMessage], newMessageText: ''}
+        default:
+            return state
     }
 
-    return state
 }
 
-export const updateNewMessageTextAC = (newText: string): UpdateNewMessageTextActionType => {
+export type UpdateNewMessageTextACType = ReturnType<typeof updateNewMessageTextAC>
+export const updateNewMessageTextAC = (newText: string) => {
     return {
         type: 'UPDATE-NEW-MESSAGE-TEXT',
         newText: newText
-    }
+    } as const
 }
 
-export const addMessageAC = (): AddMessageActionType => {
+export type AddMessageACACType = ReturnType<typeof addMessageAC>
+export const addMessageAC = () => {
     return {
         type: 'ADD-MESSAGE'
-    }
+    } as const
 }
+
+export type DialogsUnionACType = UpdateNewMessageTextACType | AddMessageACACType
 
 export default dialogsReducer;

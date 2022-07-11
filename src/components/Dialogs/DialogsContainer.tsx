@@ -1,9 +1,7 @@
 // import React from 'react';
-import {addMessageAC, updateNewMessageTextAC} from '../../redux/dialogsReducer';
+import {addMessageAC, DialogsInitialStateType, updateNewMessageTextAC} from '../../redux/dialogsReducer';
 import Dialogs from './Dialogs';
-// import StoreContext from '../../StoreContext';
 import {connect} from 'react-redux';
-import {DialogsPageType, DispatchType, StateType} from '../../Types';
 import {AppStateType} from '../../redux/redux-store';
 import {Dispatch} from 'redux';
 
@@ -37,7 +35,7 @@ import {Dispatch} from 'redux';
 };*/
 
 type MapStateToPropsType = {
-    dialogsPage: DialogsPageType
+    dialogsPage: DialogsInitialStateType
     newMessageText: string
 }
 

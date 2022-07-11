@@ -1,6 +1,10 @@
-import {AddPostActionType, AllActionsType, PostPropsType, ProfilePageType, UpdateNewPostTextActionType} from '../Types';
+export type PostType = {
+    id: number
+    message: string
+    likeCount: number
+}
 
-const initialState: ProfilePageType = {
+const initialState = {
     posts: [
         {
             id: 1,
@@ -22,15 +26,17 @@ const initialState: ProfilePageType = {
             message: 'From state',
             likeCount: 101
         }
-    ],
+    ] as Array<PostType>,
     newPostText: '',
 }
 
-const profileReducer = (state: ProfilePageType = initialState, action: AllActionsType): ProfilePageType => {
+export type ProfileInitialStateType = typeof initialState
+
+const profileReducer = (state: ProfileInitialStateType = initialState, action: ProfileUnionACType): ProfileInitialStateType => {
 
     switch (action.type) {
         case 'ADD-POST':
-            const newPost: PostPropsType = {
+            const newPost: PostType = {
                 id: state.posts.length + 1,
                 message: state.newPostText,
                 likeCount: 0
@@ -38,22 +44,27 @@ const profileReducer = (state: ProfilePageType = initialState, action: AllAction
             return {...state, posts: [...state.posts, newPost], newPostText: ''}
         case 'UPDATE-NEW-POST-TEXT':
             return {...state, newPostText: action.newText}
+        default:
+            return state
     }
 
-    return state
 }
 
-export const addPostAC = (): AddPostActionType => {
+export type AddPostACType = ReturnType<typeof addPostAC>
+export const addPostAC = () => {
     return {
         type: 'ADD-POST'
-    }
+    } as const
 }
 
-export const updateNewPostTextAC = (newText: string): UpdateNewPostTextActionType => {
+export type UpdateNewPostTextACType = ReturnType<typeof updateNewPostTextAC>
+export const updateNewPostTextAC = (newText: string) => {
     return {
         type: 'UPDATE-NEW-POST-TEXT',
         newText: newText
-    }
+    } as const
 }
+
+export type ProfileUnionACType = AddPostACType | UpdateNewPostTextACType
 
 export default profileReducer;
