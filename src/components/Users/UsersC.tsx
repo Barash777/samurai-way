@@ -8,8 +8,11 @@ import defaultAvatar from '../../assets/images/default_avatar.png'
 
 class Users extends React.Component<UsersPropsType> {
 
-    constructor(props: UsersPropsType) {
+    /*constructor(props: UsersPropsType) {
         super(props);
+    }*/
+
+    componentDidMount() {
         this.getUsers()
     }
 
