@@ -13,19 +13,26 @@ class Users extends React.Component<UsersPropsType> {
     }*/
 
     componentDidMount() {
-        this.getUsers()
+        this.getUsers(this.props.currentPage)
+        // console.log(this.props.pageSize)
     }
 
-    getUsers = () => {
+    getUsers = (currentPage: number) => {
         // if (this.props.users.length === 0) {
         axios
-            .get('https://social-network.samuraijs.com/api/1.0/users')
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.count}`)
             .then(response => {
                 const users = response.data.items
-                // console.log(users)
+                // console.log(response.data.totalCount)
                 this.props.setUsers(users)
+                this.props.setTotalUsersCount(response?.data?.totalCount)
             });
         // }
+    }
+
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber)
+        this.getUsers(pageNumber)
     }
 
     render() {
@@ -40,6 +47,21 @@ class Users extends React.Component<UsersPropsType> {
                     props.setUsers(users)
                 });
         }*/
+
+        const pagesCount = Math.ceil(this.props.totalUsersCount / this.props.count)
+        const pages = []
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i)
+        }
+
+
+        const paginationJSX = (
+            <div>
+                {pages.map(p => <span onClick={() => this.onPageChanged(p)}
+                                      className={`${css.pageNumber} ${this.props.currentPage === p ? css.selectedPage : ''}`}>{p} </span>)}
+                {/*<span> of {pagesCount}</span>*/}
+            </div>
+        )
 
         const usersJSX = this.props.users.map(u => (
             <div key={u.id}>
@@ -71,6 +93,7 @@ class Users extends React.Component<UsersPropsType> {
                 {/*<div>
                     <button onClick={this.getUsers}>Get users</button>
                 </div>*/}
+                {paginationJSX}
                 {usersJSX}
             </div>
         );

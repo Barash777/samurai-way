@@ -20,41 +20,10 @@ export type UserType = {
 }
 
 const initialState = {
-    users: [
-        /*{
-            id: 1,
-            photoURL: 'https://avatarko.ru/img/kartinka/18/multfilm_minion_17779.jpg',
-            followed: true,
-            fullName: 'Eric',
-            status: 'tra lala al',
-            location: {
-                city: 'Minsk',
-                country: 'Belarus'
-            }
-        },
-        {
-            id: 2,
-            photoURL: 'https://pngimg.com/uploads/minions/minions_PNG75.png',
-            followed: false,
-            fullName: 'Oleg',
-            status: '... trsdf a lala al',
-            location: {
-                city: 'Kiev',
-                country: 'Ukraine'
-            }
-        },
-        {
-            id: 3,
-            photoURL: 'https://pngimg.com/uploads/minions/small/minions_PNG86.png',
-            followed: true,
-            fullName: 'Ivan',
-            status: '!!! --- !!!',
-            location: {
-                city: 'Moscow',
-                country: 'Russia'
-            }
-        },*/
-    ] as Array<UserType>
+    users: [] as Array<UserType>,
+    count: 5,
+    totalUsersCount: 0,
+    currentPage: 1
 }
 
 export type UsersInitialStateType = typeof initialState
@@ -72,6 +41,16 @@ const usersReducer = (state: UsersInitialStateType = initialState, action: Users
                 ...state,
                 users: [...action.users]
                 // users: [...state.users, ...action.users]
+            }
+        case 'SET-USERS-CURRENT-PAGE':
+            return {
+                ...state,
+                currentPage: action.currentPage
+            }
+        case 'SET-TOTAL-USERS-COUNT':
+            return {
+                ...state,
+                totalUsersCount: action.count
             }
         default:
             return state
@@ -95,6 +74,23 @@ export const setUsersAC = (users: Array<UserType>) => {
     } as const
 }
 
-export type UsersUnionACType = ChangeFollowStatusACType | SetUsersACACType
+export type SetUsersCurrentPageACType = ReturnType<typeof setUsersCurrentPageAC>
+export const setUsersCurrentPageAC = (currentPage: number) => {
+    return {
+        type: 'SET-USERS-CURRENT-PAGE',
+        currentPage
+    } as const
+}
+
+export type SetTotalUsersCountACType = ReturnType<typeof setTotalUsersCountAC>
+export const setTotalUsersCountAC = (count: number) => {
+    return {
+        type: 'SET-TOTAL-USERS-COUNT',
+        count
+    } as const
+}
+
+export type UsersUnionACType = ChangeFollowStatusACType | SetUsersACACType |
+    SetUsersCurrentPageACType | SetTotalUsersCountACType
 
 export default usersReducer;
