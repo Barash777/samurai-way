@@ -7,7 +7,49 @@ import {
     UserType
 } from '../../redux/usersReducer';
 import {AppStateType} from '../../redux/redux-store';
-import UsersC from './UsersC';
+import React from 'react';
+import axios from 'axios';
+import Users from './Users';
+
+
+class UsersAPIComponent extends React.Component<UsersAPIPropsType> {
+
+    componentDidMount() {
+        this.getUsers(this.props.currentPage)
+    }
+
+    getUsers = (currentPage: number) => {
+        axios
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.count}`)
+            .then(response => {
+                const users = response.data.items
+                // console.log(response.data.totalCount)
+                this.props.setUsers(users)
+                this.props.setTotalUsersCount(response?.data?.totalCount)
+            });
+    }
+
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber)
+        this.getUsers(pageNumber)
+    }
+
+    render() {
+
+
+        return (
+            <Users
+                users={this.props.users}
+                count={this.props.count}
+                totalUsersCount={this.props.totalUsersCount}
+                currentPage={this.props.currentPage}
+                changeFollowStatus={this.props.changeFollowStatus}
+                onPageChanged={this.onPageChanged}
+            />
+        );
+    }
+}
+
 
 // UsersInitialStateType
 
@@ -23,7 +65,7 @@ export type MapDispatchToPropsType = {
     setCurrentPage: (currentPage: number) => void
     setTotalUsersCount: (totalCount: number) => void
 }
-export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
+export type UsersAPIPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
@@ -52,4 +94,4 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersC);
+export default connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent);

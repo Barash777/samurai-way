@@ -1,70 +1,35 @@
 import React from 'react';
-import {UsersPropsType} from './UsersContainer';
 import css from './Users.module.css'
-// import {UserType} from '../../redux/usersReducer';
-import axios from 'axios';
-// import * as axios from 'axios'
 import defaultAvatar from '../../assets/images/default_avatar.png'
+import {UserType} from '../../redux/usersReducer';
 
-/*const arrayUsers: Array<UserType> = [
-    {
-        id: 1,
-        photoURL: 'https://pngimg.com/uploads/minions/small/minions_PNG60.png',
-        followed: true,
-        name: 'Eric',
-        status: 'tra lala al',
-        location: {
-            city: 'Minsk',
-            country: 'Belarus'
-        }
-    },
-    {
-        id: 2,
-        photoURL: 'https://pngimg.com/uploads/minions/minions_PNG75.png',
-        followed: false,
-        name: 'Oleg',
-        status: '... trsdf a lala al',
-        location: {
-            city: 'Kiev',
-            country: 'Ukraine'
-        }
-    },
-    {
-        id: 3,
-        photoURL: 'https://pngimg.com/uploads/minions/small/minions_PNG86.png',
-        followed: true,
-        name: 'Ivan',
-        status: '!!! --- !!!',
-        location: {
-            city: 'Moscow',
-            country: 'Russia'
-        }
-    }
-]*/
+export type UsersPropsType = {
+    users: Array<UserType>
+    count: number
+    totalUsersCount: number
+    currentPage: number
+    onPageChanged: (pageNumber: number) => void
+    changeFollowStatus: (userID: number) => void
+}
+
 
 const Users = (props: UsersPropsType) => {
 
-    const getUsers = () => {
-        if (props.users.length === 0) {
-            axios
-                .get('https://social-network.samuraijs.com/api/1.0/users')
-                .then(response => {
-                    const users = response.data.items
-                    console.log(users)
-                    props.setUsers(users)
-                });
-        }
+
+    const pagesCount = Math.ceil(props.totalUsersCount / props.count)
+    const pages = []
+    for (let i = 1; i <= Math.min(pagesCount, 5); i++) {
+        pages.push(i)
     }
 
-    /*if (props.users.length === 0) {
-        axios
-            .get('https://social-network.samuraijs.com/api/1.0/users')
-            .then(response => {
-                const users = response.data.items
-                console.log(users)
-                props.setUsers(users)
-            });
-    }*/
+
+    const paginationJSX = (
+        <div>
+            {pages.map(p => <span onClick={() => props.onPageChanged(p)}
+                                  className={`${css.pageNumber} ${props.currentPage === p ? css.selectedPage : ''}`}>{p} </span>)}
+            <span> of {pagesCount}</span>
+        </div>
+    )
 
     const usersJSX = props.users.map(u => (
         <div key={u.id}>
@@ -93,9 +58,7 @@ const Users = (props: UsersPropsType) => {
 
     return (
         <div>
-            <div>
-                <button onClick={getUsers}>Get users</button>
-            </div>
+            {paginationJSX}
             {usersJSX}
         </div>
     );
