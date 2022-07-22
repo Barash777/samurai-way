@@ -4,6 +4,7 @@ import defaultAvatar from '../../assets/images/default_avatar.png'
 import {UserType} from '../../redux/usersReducer';
 
 export type UsersPropsType = {
+    // isFetching: boolean
     users: Array<UserType>
     count: number
     totalUsersCount: number
@@ -35,7 +36,7 @@ const Users = (props: UsersPropsType) => {
         <div key={u.id}>
             <span>
                 <div>
-                    <img src={u.photos.small ?? defaultAvatar} className={css.avatar}/>
+                    <img src={u.photos.small ?? defaultAvatar} className={css.avatar} alt={'avatar'}/>
                 </div>
                 <div>
                     <button onClick={() => {

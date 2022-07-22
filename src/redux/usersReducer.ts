@@ -23,7 +23,8 @@ const initialState = {
     users: [] as Array<UserType>,
     count: 5,
     totalUsersCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: true
 }
 
 export type UsersInitialStateType = typeof initialState
@@ -51,6 +52,11 @@ const usersReducer = (state: UsersInitialStateType = initialState, action: Users
             return {
                 ...state,
                 totalUsersCount: action.count
+            }
+        case 'CHANGE-IS-FETCHING-USERS':
+            return {
+                ...state,
+                isFetching: action.isFetching
             }
         default:
             return state
@@ -90,7 +96,15 @@ export const setTotalUsersCountAC = (count: number) => {
     } as const
 }
 
+export type ChangeIsFetchingACType = ReturnType<typeof changeIsFetchingAC>
+export const changeIsFetchingAC = (isFetching: boolean) => {
+    return {
+        type: 'CHANGE-IS-FETCHING-USERS',
+        isFetching
+    } as const
+}
+
 export type UsersUnionACType = ChangeFollowStatusACType | SetUsersACACType |
-    SetUsersCurrentPageACType | SetTotalUsersCountACType
+    SetUsersCurrentPageACType | SetTotalUsersCountACType | ChangeIsFetchingACType
 
 export default usersReducer;
