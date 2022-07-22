@@ -1,10 +1,10 @@
 import {connect} from 'react-redux';
-import {Dispatch} from 'redux';
 import {
-    changeFollowStatusAC, changeIsFetchingAC, setTotalUsersCountAC,
-    setUsersAC,
-    setUsersCurrentPageAC,
-    UserType
+    changeFollowStatusAC as changeFollowStatus,
+    changeIsFetchingAC as changeIsFetching,
+    setTotalUsersCountAC as setTotalUsersCount,
+    setUsersAC as setUsers,
+    setUsersCurrentPageAC as setCurrentPage
 } from '../../redux/usersReducer';
 import {AppStateType} from '../../redux/redux-store';
 import React from 'react';
@@ -15,6 +15,7 @@ import Preloader from '../Preloader/Preloader';
 class UsersAPIComponent extends React.Component<UsersAPIPropsType> {
 
     componentDidMount() {
+        // console.log(this.props)
         this.getUsers(this.props.currentPage)
     }
 
@@ -59,24 +60,28 @@ class UsersAPIComponent extends React.Component<UsersAPIPropsType> {
 
 // UsersInitialStateType
 
-export type MapStateToPropsType = {
+/*export type MapStateToPropsType = {
     users: Array<UserType>
     count: number
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
 }
-export type MapDispatchToPropsType = {
+*/
+/*export type MapDispatchToPropsType = {
     changeFollowStatus: (userID: number) => void
     setUsers: (users: Array<UserType>) => void
     setCurrentPage: (currentPage: number) => void
     setTotalUsersCount: (totalCount: number) => void
     changeIsFetching: (isFetching: boolean) => void
-}
+}*/
+
+export type MapStateToPropsType = ReturnType<typeof mapStateToProps>
+export type MapDispatchToPropsType = ReturnType<typeof mapDispatchToProps>
 export type UsersAPIPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 
-const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+const mapStateToProps = (state: AppStateType) => {
     return {
         users: state.usersPage.users,
         count: state.usersPage.count,
@@ -86,7 +91,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
+/*const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         changeFollowStatus: (userID: number) => {
             dispatch(changeFollowStatusAC(userID))
@@ -104,6 +109,16 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
             dispatch(changeIsFetchingAC(isFetching))
         }
     }
+}*/
+
+const mapDispatchToProps = () => {
+    return {
+        changeFollowStatus,
+        setUsers,
+        setCurrentPage,
+        setTotalUsersCount,
+        changeIsFetching
+    }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent);
+export default connect(mapStateToProps, mapDispatchToProps())(UsersAPIComponent);
