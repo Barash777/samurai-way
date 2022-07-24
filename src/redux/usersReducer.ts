@@ -1,7 +1,7 @@
-export type LocationType = {
+/*export type LocationType = {
     city: string
     country: string
-}
+}*/
 
 export type PhotosType = {
     small: string
@@ -16,7 +16,7 @@ export type UserType = {
     name: string
     status: string
     photos: PhotosType
-    location?: LocationType
+    // location?: LocationType
 }
 
 const initialState = {

@@ -2,6 +2,7 @@ import React from 'react';
 import css from './Users.module.css'
 import defaultAvatar from '../../assets/images/default_avatar.png'
 import {UserType} from '../../redux/usersReducer';
+import {NavLink} from 'react-router-dom';
 
 export type UsersPropsType = {
     // isFetching: boolean
@@ -35,7 +36,9 @@ const Users = (props: UsersPropsType) => {
         <div key={u.id}>
             <span>
                 <div>
-                    <img src={u.photos.small ?? defaultAvatar} className={css.avatar} alt={'avatar'}/>
+                    <NavLink to={'/profile/' + u.id}>
+                        <img src={u.photos.small ?? defaultAvatar} className={css.avatar} alt={'avatar'}/>
+                    </NavLink>
                 </div>
                 <div>
                     <button onClick={() => {
@@ -48,10 +51,10 @@ const Users = (props: UsersPropsType) => {
                     <div>{u.name}</div>
                     <div>{u.status}</div>
                 </span>
-                <span>
+                {/*<span>
                     <div>{'u.location.country'}</div>
                     <div>{'u.location.city'}</div>
-                </span>
+                </span>*/}
             </span>
         </div>
     ))

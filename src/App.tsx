@@ -1,5 +1,5 @@
 import React from 'react';
-import {Navigate, Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 
 import './css/App.css';
 import Header from './components/Header/Header';
@@ -7,10 +7,11 @@ import Sidebar from './components/Sidebar/Sidebar';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import Profile from './components/Profile/Profile';
+// import Profile from './components/Profile/Profile';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
-import Users from './components/Users/Users';
+// import Users from './components/Users/Users';
 import UsersContainer from './components/Users/UsersContainer';
+import ProfileContainer from './components/Profile/ProfileContainer';
 
 
 function App() {
@@ -22,7 +23,8 @@ function App() {
             <div className="app-wrapper-content">
                 <Routes>
                     {/*<Route path={'/'} element={<Navigate to="/profile"/>}/>*/}
-                    <Route path="/profile" element={<Profile/>}/>
+                    <Route path="/profile" element={<ProfileContainer/>}/>
+                    {/*<Route path={'/profile/:id'} element={<div>id</div>}/>*/}
                     <Route path="/dialogs/*" element={<DialogsContainer/>}/>
                     <Route path="/users" element={<UsersContainer/>}/>
                     <Route path="/news" element={<News/>}/>

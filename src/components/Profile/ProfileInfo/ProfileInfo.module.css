@@ -1,11 +1,21 @@
 .topImage {
-    width: 1000px;
+    max-width: 1000px;
+    object-fit: cover;
+    max-height: 400px;
+    display: flex;
+    justify-content: center;
 }
 
 img.avatar {
     width: 100px;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .description {
+    padding: 10px;
+}
+
+.aboutMeBlock {
     padding: 10px;
 }
