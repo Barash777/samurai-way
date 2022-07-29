@@ -3,13 +3,15 @@ import profileReducer from './profileReducer';
 import dialogsReducer from './dialogsReducer';
 import sidebarReducer from './sidebarReducer';
 import usersReducer from './usersReducer';
+import authReducer from './authReducer';
 // import {StoreType} from '../Types';
 
 export const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     usersPage: usersReducer,
-    sidebar: sidebarReducer
+    sidebar: sidebarReducer,
+    auth: authReducer
 });
 
 export type AppStateType = ReturnType<typeof rootReducer>;
