@@ -4,15 +4,20 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/redux-store';
 import {setUserProfileAC as setUserProfile} from '../../redux/profileReducer';
+import {useParams} from 'react-router-dom';
 
 
 class ProfileContainer extends React.Component<ProfilePropsType> {
 
     componentDidMount() {
-        this.getProfile()
+        console.log(this.props)
+        let userId = this.props?.params?.userId
+        // let userId = this.props?.children
+        // const userId = '2'
+        this.getProfile(userId ? userId : '2')
     }
 
-    getProfile = (userId: number = 2) => {
+    getProfile = (userId: string = '2') => {
         // this.props.changeIsFetching(true)
         axios
             .get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
@@ -25,7 +30,7 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
 
     render() {
 
-        // console.log(this.props.profile)
+        // console.log(this.props)
         return (
             <Profile {...this.props}/>
         );
@@ -35,8 +40,11 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
 
 type MapStateToPropsType = ReturnType<typeof mapStateToProps>
 type MapDispatchToPropsType = ReturnType<typeof mapDispatchToProps>
-export type ProfilePropsType = MapStateToPropsType & MapDispatchToPropsType
-
+export type ProfilePropsType = MapStateToPropsType & MapDispatchToPropsType & {
+    params: {
+        userId: string
+    }
+}
 
 const mapStateToProps = (state: AppStateType) => {
     return {
@@ -46,7 +54,7 @@ const mapStateToProps = (state: AppStateType) => {
 
 /*const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        setUserProfile: (profile: any) => {
+        setUserProfile: (profile: ProfileType) => {
             dispatch(setUserProfileAC(profile))
         }
     }
@@ -59,4 +67,9 @@ const mapDispatchToProps = () => {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps())(ProfileContainer);
+function withParams(Component: React.ElementType) {
+    return (props: any) => <Component {...props} params={useParams()}/>;
+}
+
+// export default connect(mapStateToProps, mapDispatchToProps())(ProfileContainer);
+export default withParams(connect(mapStateToProps, mapDispatchToProps())(ProfileContainer));

@@ -23,8 +23,15 @@ function App() {
             <div className="app-wrapper-content">
                 <Routes>
                     {/*<Route path={'/'} element={<Navigate to="/profile"/>}/>*/}
-                    <Route path="/profile" element={<ProfileContainer/>}/>
-                    {/*<Route path={'/profile/:id'} element={<div>id</div>}/>*/}
+                    {/*<Route path="/profile/:userId" element={<ProfileContainer/>}/>*/}
+                    {/*<Route path="/profile/:userId" element={<ProfileParams/>}/>*/}
+                    {/*<Route path={'/profile/:userId'} element={<div>id</div>}/>*/}
+
+                    <Route path="profile" element={<ProfileContainer/>}>
+                        <Route path=":userId/*" element={<ProfileContainer/>}/>
+                        {/*<Route path="" element={<ProfileContainer/>}/>*/}
+                    </Route>
+
                     <Route path="/dialogs/*" element={<DialogsContainer/>}/>
                     <Route path="/users" element={<UsersContainer/>}/>
                     <Route path="/news" element={<News/>}/>
