@@ -24,7 +24,8 @@ const initialState = {
     count: 5,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: true
+    isFetching: true,
+    followingInProgress: [] as Array<number>
 }
 
 export type UsersInitialStateType = typeof initialState
@@ -57,6 +58,13 @@ const usersReducer = (state: UsersInitialStateType = initialState, action: Users
             return {
                 ...state,
                 isFetching: action.isFetching
+            }
+        case 'CHANGE-IS-FOLLOWING-IN-PROGRESS':
+            return {
+                ...state,
+                followingInProgress: action.follow
+                    ? [...state.followingInProgress, action.id]
+                    : state.followingInProgress.filter(id => id !== action.id)
             }
         default:
             return state
@@ -104,7 +112,17 @@ export const changeIsFetchingAC = (isFetching: boolean) => {
     } as const
 }
 
+export type ChangeFollowingInProgressACType = ReturnType<typeof changeFollowingInProgressAC>
+export const changeFollowingInProgressAC = (follow: boolean, id: number) => {
+    return {
+        type: 'CHANGE-IS-FOLLOWING-IN-PROGRESS',
+        follow,
+        id
+    } as const
+}
+
 export type UsersUnionACType = ChangeFollowStatusACType | SetUsersACACType |
-    SetUsersCurrentPageACType | SetTotalUsersCountACType | ChangeIsFetchingACType
+    SetUsersCurrentPageACType | SetTotalUsersCountACType | ChangeIsFetchingACType |
+    ChangeFollowingInProgressACType
 
 export default usersReducer;

@@ -13,6 +13,10 @@ export type UsersPropsType = {
     currentPage: number
     onPageChanged: (pageNumber: number) => void
     changeFollowStatus: (userID: number) => void
+    changeFollowingInProgress: (follow: boolean, id: number) => void
+    followingInProgress: Array<number>
+    // follow: (userID: number) => Promise<any>
+    // unfollow: (userID: number) => Promise<any>
 }
 
 
@@ -42,21 +46,26 @@ const Users = (props: UsersPropsType) => {
                     </NavLink>
                 </div>
                 <div>
-                    <button onClick={() => {
+                    <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                        props.changeFollowingInProgress(true, u.id)
                         if (!u.followed) {
                             usersAPI.follow(u.id)
                                 .then(data => {
                                     if (data.resultCode === 0) {
                                         props.changeFollowStatus(u.id)
                                     }
-                                });
+                                }).finally(() => {
+                                props.changeFollowingInProgress(false, u.id)
+                            });
                         } else {
                             usersAPI.unfollow(u.id)
                                 .then(data => {
                                     if (data.resultCode === 0) {
                                         props.changeFollowStatus(u.id)
                                     }
-                                });
+                                }).finally(() => {
+                                props.changeFollowingInProgress(false, u.id)
+                            });
                         }
 
                     }}>{u.followed ? 'UNFOLLOW' : 'FOLLOW'}</button>

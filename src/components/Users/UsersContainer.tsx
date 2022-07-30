@@ -4,7 +4,8 @@ import {
     changeIsFetchingAC as changeIsFetching,
     setTotalUsersCountAC as setTotalUsersCount,
     setUsersAC as setUsers,
-    setUsersCurrentPageAC as setCurrentPage
+    setUsersCurrentPageAC as setCurrentPage,
+    changeFollowingInProgressAC as changeFollowingInProgress
 } from '../../redux/usersReducer';
 import {AppStateType} from '../../redux/redux-store';
 import React from 'react';
@@ -36,6 +37,7 @@ class UsersAPIComponent extends React.Component<UsersAPIPropsType> {
         this.getUsersClassMethod(pageNumber)
     }
 
+
     render() {
         return (
             <>
@@ -49,6 +51,8 @@ class UsersAPIComponent extends React.Component<UsersAPIPropsType> {
                         currentPage={this.props.currentPage}
                         changeFollowStatus={this.props.changeFollowStatus}
                         onPageChanged={this.onPageChanged}
+                        followingInProgress={this.props.followingInProgress}
+                        changeFollowingInProgress={this.props.changeFollowingInProgress}
                     />
                 }
             </>
@@ -86,7 +90,8 @@ const mapStateToProps = (state: AppStateType) => {
         count: state.usersPage.count,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 
@@ -116,7 +121,8 @@ const mapDispatchToProps = () => {
         setUsers,
         setCurrentPage,
         setTotalUsersCount,
-        changeIsFetching
+        changeIsFetching,
+        changeFollowingInProgress
     }
 }
 
