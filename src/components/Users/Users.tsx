@@ -3,7 +3,7 @@ import css from './Users.module.css'
 import defaultAvatar from '../../assets/images/default_avatar.png'
 import {UserType} from '../../redux/usersReducer';
 import {NavLink} from 'react-router-dom';
-import axios from 'axios';
+import {usersAPI} from '../../api/api';
 
 export type UsersPropsType = {
     // isFetching: boolean
@@ -44,31 +44,16 @@ const Users = (props: UsersPropsType) => {
                 <div>
                     <button onClick={() => {
                         if (!u.followed) {
-                            axios
-                                .post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-                                    null,
-                                    {
-                                        withCredentials: true,
-                                        headers: {
-                                            'API-KEY': '080b6f04-633a-48af-ad35-2bac47390f36'
-                                        }
-                                    })
-                                .then(response => {
-                                    if (response.data.resultCode === 0) {
+                            usersAPI.follow(u.id)
+                                .then(data => {
+                                    if (data.resultCode === 0) {
                                         props.changeFollowStatus(u.id)
                                     }
                                 });
                         } else {
-                            axios
-                                .delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-                                    {
-                                        withCredentials: true,
-                                        headers: {
-                                            'API-KEY': '080b6f04-633a-48af-ad35-2bac47390f36'
-                                        }
-                                    })
-                                .then(response => {
-                                    if (response.data.resultCode === 0) {
+                            usersAPI.unfollow(u.id)
+                                .then(data => {
+                                    if (data.resultCode === 0) {
                                         props.changeFollowStatus(u.id)
                                     }
                                 });

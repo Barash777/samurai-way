@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
 import css from './Header.module.css';
 import {NavLink} from 'react-router-dom';
-import axios from 'axios';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppStateType} from '../../redux/redux-store';
 import {AuthInitialStateType, setUserDataAC} from '../../redux/authReducer';
+import {usersAPI} from '../../api/api';
 
 function Header() {
 
@@ -12,20 +12,11 @@ function Header() {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-                withCredentials: true,
-                headers: {
-                    'API-KEY': '080b6f04-633a-48af-ad35-2bac47390f36',
-                    // 'Access-Control-Allow-Origin': '*'
-                    // 'Access-Control-Allow-Origin': null
-                    // 'Origin': '*'
-                }
-            })
+        usersAPI.authMe()
             .then(response => {
                 // console.log(response)
-                if (response.data.resultCode === 0) {
-                    const data = response.data.data
+                if (response.resultCode === 0) {
+                    const data = response.data
                     dispatch(setUserDataAC(data.id, data.email, data.login))
                 }
             });
