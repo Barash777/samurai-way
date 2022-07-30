@@ -10,7 +10,7 @@ import {useParams} from 'react-router-dom';
 class ProfileContainer extends React.Component<ProfilePropsType> {
 
     componentDidMount() {
-        console.log(this.props)
+        // console.log(this.props)
         let userId = this.props?.params?.userId
         // let userId = this.props?.children
         // const userId = '2'
