@@ -1,42 +1,28 @@
 import {connect} from 'react-redux';
 import {
     changeFollowStatusAC as changeFollowStatus,
-    changeIsFetchingAC as changeIsFetching,
-    setTotalUsersCountAC as setTotalUsersCount,
-    setUsersAC as setUsers,
+    // changeIsFetchingAC as changeIsFetching,
+    // setTotalUsersCountAC as setTotalUsersCount,
+    // setUsersAC as setUsers,
     setUsersCurrentPageAC as setCurrentPage,
-    changeFollowingInProgressAC as changeFollowingInProgress
+    changeFollowingInProgressAC as changeFollowingInProgress,
+    getUsersThunkCreator, UserType, followTC, unfollowTC
 } from '../../redux/usersReducer';
 import {AppStateType} from '../../redux/redux-store';
 import React from 'react';
 import Users from './Users';
 import Preloader from '../Preloader/Preloader';
-import {usersAPI} from '../../api/api';
 
 class UsersAPIComponent extends React.Component<UsersAPIPropsType> {
-
     componentDidMount() {
-        // console.log(this.props)
-        this.getUsersClassMethod(this.props.currentPage)
-    }
-
-    getUsersClassMethod = (currentPage: number) => {
-        this.props.changeIsFetching(true)
-
-        usersAPI.getUsers(currentPage, this.props.count)
-            .then(data => {
-                const users = data?.items
-                this.props.changeIsFetching(false)
-                this.props.setUsers(users)
-                this.props.setTotalUsersCount(data?.totalCount)
-            });
+        this.props.getUsers(this.props.currentPage, this.props.count)
     }
 
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber)
-        this.getUsersClassMethod(pageNumber)
+        // this.getUsersClassMethod(pageNumber)
+        this.props.getUsers(pageNumber, this.props.count)
     }
-
 
     render() {
         return (
@@ -44,15 +30,18 @@ class UsersAPIComponent extends React.Component<UsersAPIPropsType> {
                 {this.props.isFetching
                     ? <Preloader/>
                     : <Users
-                        // isFetching={this.props.isFetching}
-                        users={this.props.users}
+                        /*users={this.props.users}
                         count={this.props.count}
                         totalUsersCount={this.props.totalUsersCount}
                         currentPage={this.props.currentPage}
                         changeFollowStatus={this.props.changeFollowStatus}
-                        onPageChanged={this.onPageChanged}
+                        // onPageChanged={this.onPageChanged}
                         followingInProgress={this.props.followingInProgress}
                         changeFollowingInProgress={this.props.changeFollowingInProgress}
+                        follow={this.props.follow}
+                        unfollow={this.props.unfollow}*/
+                        {...this.props}
+                        onPageChanged={this.onPageChanged}
                     />
                 }
             </>
@@ -63,21 +52,6 @@ class UsersAPIComponent extends React.Component<UsersAPIPropsType> {
 
 // UsersInitialStateType
 
-/*export type MapStateToPropsType = {
-    users: Array<UserType>
-    count: number
-    totalUsersCount: number
-    currentPage: number
-    isFetching: boolean
-}
-*/
-/*export type MapDispatchToPropsType = {
-    changeFollowStatus: (userID: number) => void
-    setUsers: (users: Array<UserType>) => void
-    setCurrentPage: (currentPage: number) => void
-    setTotalUsersCount: (totalCount: number) => void
-    changeIsFetching: (isFetching: boolean) => void
-}*/
 
 export type MapStateToPropsType = ReturnType<typeof mapStateToProps>
 export type MapDispatchToPropsType = ReturnType<typeof mapDispatchToProps>
@@ -98,32 +72,42 @@ const mapStateToProps = (state: AppStateType) => {
 /*const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         changeFollowStatus: (userID: number) => {
-            dispatch(changeFollowStatusAC(userID))
+            dispatch(changeFollowStatus(userID))
         },
         setUsers: (users: Array<UserType>) => {
-            dispatch(setUsersAC(users))
+            dispatch(setUsers(users))
         },
         setCurrentPage: (currentPage: number) => {
-            dispatch(setUsersCurrentPageAC(currentPage))
+            dispatch(setCurrentPage(currentPage))
         },
         setTotalUsersCount: (totalCount: number) => {
-            dispatch(setTotalUsersCountAC(totalCount))
+            dispatch(setTotalUsersCount(totalCount))
         },
         changeIsFetching: (isFetching: boolean) => {
-            dispatch(changeIsFetchingAC(isFetching))
+            dispatch(changeIsFetching(isFetching))
+        },
+        changeFollowingInProgress: (follow: boolean, id: number) => {
+            dispatch(changeFollowingInProgress(follow, id))
+        },
+        getUsers: (currentPage: number, count: number) => {
+            getUsersThunkCreator(currentPage, count)(dispatch)
         }
     }
 }*/
 
 const mapDispatchToProps = () => {
     return {
-        changeFollowStatus,
-        setUsers,
+        // changeFollowStatus,
+        // setUsers,
         setCurrentPage,
-        setTotalUsersCount,
-        changeIsFetching,
-        changeFollowingInProgress
+        // setTotalUsersCount,
+        // changeIsFetching,
+        // changeFollowingInProgress,
+        getUsers: getUsersThunkCreator,
+        follow: followTC,
+        unfollow: unfollowTC
     }
 }
 
+// @ts-ignore ??????? WHY ?????
 export default connect(mapStateToProps, mapDispatchToProps())(UsersAPIComponent);

@@ -3,6 +3,9 @@
     country: string
 }*/
 
+import {usersAPI} from '../api/api';
+import {Dispatch} from 'redux';
+
 export type PhotosType = {
     small: string
     large: string
@@ -124,5 +127,43 @@ export const changeFollowingInProgressAC = (follow: boolean, id: number) => {
 export type UsersUnionACType = ChangeFollowStatusACType | SetUsersACACType |
     SetUsersCurrentPageACType | SetTotalUsersCountACType | ChangeIsFetchingACType |
     ChangeFollowingInProgressACType
+
+
+export const getUsersThunkCreator = (currentPage: number, count: number) => (dispatch: Dispatch) => {
+    // console.log('here')
+    dispatch(changeIsFetchingAC(true))
+
+    usersAPI.getUsers(currentPage, count)
+        .then(data => {
+            // console.log('here 2')
+            const users = data?.items
+            dispatch(changeIsFetchingAC(false))
+            dispatch(setUsersAC(users))
+            dispatch(setTotalUsersCountAC(data?.totalCount))
+        });
+}
+
+export const followTC = (id: number) => (dispatch: Dispatch) => {
+    dispatch(changeFollowingInProgressAC(true, id))
+    usersAPI.follow(id)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(changeFollowStatusAC(id))
+            }
+        }).finally(() => {
+        dispatch(changeFollowingInProgressAC(false, id))
+    });
+}
+export const unfollowTC = (id: number) => (dispatch: Dispatch) => {
+    dispatch(changeFollowingInProgressAC(true, id))
+    usersAPI.unfollow(id)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(changeFollowStatusAC(id))
+            }
+        }).finally(() => {
+        dispatch(changeFollowingInProgressAC(false, id))
+    });
+}
 
 export default usersReducer;

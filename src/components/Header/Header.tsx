@@ -20,7 +20,7 @@ function Header() {
                     dispatch(setUserDataAC(data.id, data.email, data.login))
                 }
             });
-    }, [])
+    }, [dispatch])
 
     return (
         <header className={css.header}>
