@@ -12,6 +12,8 @@ import {AppStateType} from '../../redux/redux-store';
 import React from 'react';
 import Users from './Users';
 import Preloader from '../Preloader/Preloader';
+import {compose} from 'redux';
+import WithAuthRedirect from '../../hoc/WithAuthRedirect';
 
 class UsersAPIComponent extends React.Component<UsersAPIPropsType> {
     componentDidMount() {
@@ -20,7 +22,6 @@ class UsersAPIComponent extends React.Component<UsersAPIPropsType> {
 
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber)
-        // this.getUsersClassMethod(pageNumber)
         this.props.getUsers(pageNumber, this.props.count)
     }
 
@@ -100,4 +101,10 @@ const mapDispatchToProps = () => {
 }
 
 // @ts-ignore ??????? WHY ?????
-export default connect(mapStateToProps, mapDispatchToProps())(UsersAPIComponent);
+// export default connect(mapStateToProps, mapDispatchToProps())(UsersAPIComponent);
+
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, mapDispatchToProps()),
+    WithAuthRedirect
+)
+(UsersAPIComponent)

@@ -5,6 +5,7 @@ import {AppStateType} from '../../redux/redux-store';
 import {getProfileTC} from '../../redux/profileReducer';
 import {useParams} from 'react-router-dom';
 import WithAuthRedirect from '../../hoc/WithAuthRedirect';
+import {compose} from 'redux';
 
 
 class ProfileContainer extends React.Component<ProfilePropsType> {
@@ -38,8 +39,8 @@ const mapStateToProps = (state: AppStateType) => {
 
 /*const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        setUserProfile: (profile: ProfileType) => {
-            dispatch(setUserProfileAC(profile))
+        getProfile: (id: number) => {
+            getProfileTC(id)(dispatch)
         }
     }
 }*/
@@ -55,10 +56,10 @@ function withParams(Component: React.ElementType) {
     return (props: any) => <Component {...props} params={useParams()}/>;
 }
 
-// const withAuth = WithAuthRedirect(ProfileContainer)
-// const withAuth = ProfileContainer
 
-// export default connect(mapStateToProps, mapDispatchToProps())(ProfileContainer);
-// @ts-ignore
-// export default withParams(connect(mapStateToProps, mapDispatchToProps())(WithAuthRedirect(ProfileContainer)));
-export default WithAuthRedirect(withParams(connect(mapStateToProps, mapDispatchToProps())(ProfileContainer)));
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, mapDispatchToProps()),
+    withParams,
+    WithAuthRedirect
+)
+(ProfileContainer)
