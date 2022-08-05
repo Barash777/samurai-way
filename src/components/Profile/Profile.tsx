@@ -8,6 +8,7 @@ function Profile(props: ProfilePropsType) {
 
     // console.log(props)
 
+
     return (
         <div>
             <ProfileInfo profile={props.profile}/>
