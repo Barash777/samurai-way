@@ -7,8 +7,16 @@ import UsersContainer from '../Users/UsersContainer';
 import News from '../News/News';
 import Music from '../Music/Music';
 import Settings from '../Settings/Settings';
+// import {useSelector} from 'react-redux';
+// import {AppStateType} from '../../redux/redux-store';
 
 const Content = () => {
+    // const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
+
+    // if (!isAuth) {
+    //     return <Navigate to={'/login'}/>
+    // }
+
     return (
         <div className="app-wrapper-content">
             <Routes>
@@ -16,6 +24,7 @@ const Content = () => {
                 {/*<Route path="/profile/:userId" element={<ProfileContainer/>}/>*/}
                 {/*<Route path="/profile/:userId" element={<ProfileParams/>}/>*/}
                 {/*<Route path={'/profile/:userId'} element={<div>id</div>}/>*/}
+
 
                 <Route path="profile" element={<ProfileContainer/>}>
                     <Route path=":userId/*" element={<ProfileContainer/>}/>

@@ -3,24 +3,18 @@ import Profile from './Profile';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/redux-store';
 import {getProfileTC} from '../../redux/profileReducer';
-import {Navigate, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
+import WithAuthRedirect from '../../hoc/WithAuthRedirect';
 
 
 class ProfileContainer extends React.Component<ProfilePropsType> {
 
     componentDidMount() {
-        // console.log(this.props)
         const userId = this.props?.params?.userId ?? 24797
         this.props.getProfile(+userId)
     }
 
     render() {
-
-        if (!this.props.isAuth) {
-            return <Navigate to={'/login'}/>
-        }
-
-        // console.log(this.props)
         return (
             <Profile {...this.props}/>
         );
@@ -38,8 +32,7 @@ export type ProfilePropsType = MapStateToPropsType & MapDispatchToPropsType & {
 
 const mapStateToProps = (state: AppStateType) => {
     return {
-        profile: state.profilePage.profile,
-        isAuth: state.auth.isAuth
+        profile: state.profilePage.profile
     }
 }
 
@@ -62,6 +55,10 @@ function withParams(Component: React.ElementType) {
     return (props: any) => <Component {...props} params={useParams()}/>;
 }
 
+// const withAuth = WithAuthRedirect(ProfileContainer)
+// const withAuth = ProfileContainer
+
 // export default connect(mapStateToProps, mapDispatchToProps())(ProfileContainer);
 // @ts-ignore
-export default withParams(connect(mapStateToProps, mapDispatchToProps())(ProfileContainer));
+// export default withParams(connect(mapStateToProps, mapDispatchToProps())(WithAuthRedirect(ProfileContainer)));
+export default WithAuthRedirect(withParams(connect(mapStateToProps, mapDispatchToProps())(ProfileContainer)));
