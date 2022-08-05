@@ -3,8 +3,8 @@ import css from './Header.module.css';
 import {NavLink} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppStateType} from '../../redux/redux-store';
-import {AuthInitialStateType, setUserDataAC} from '../../redux/authReducer';
-import {usersAPI} from '../../api/api';
+import {AuthInitialStateType} from '../../redux/authReducer';
+import {authMeTC} from '../../redux/authReducer';
 
 function Header() {
 
@@ -12,14 +12,7 @@ function Header() {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        usersAPI.authMe()
-            .then(response => {
-                // console.log(response)
-                if (response.resultCode === 0) {
-                    const data = response.data
-                    dispatch(setUserDataAC(data.id, data.email, data.login))
-                }
-            });
+        authMeTC()(dispatch)
     }, [dispatch])
 
     return (

@@ -154,6 +154,7 @@ export const followTC = (id: number) => (dispatch: Dispatch) => {
         dispatch(changeFollowingInProgressAC(false, id))
     });
 }
+
 export const unfollowTC = (id: number) => (dispatch: Dispatch) => {
     dispatch(changeFollowingInProgressAC(true, id))
     usersAPI.unfollow(id)

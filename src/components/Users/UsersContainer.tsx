@@ -1,12 +1,12 @@
 import {connect} from 'react-redux';
 import {
-    changeFollowStatusAC as changeFollowStatus,
+    // changeFollowStatusAC as changeFollowStatus,
     // changeIsFetchingAC as changeIsFetching,
     // setTotalUsersCountAC as setTotalUsersCount,
     // setUsersAC as setUsers,
     setUsersCurrentPageAC as setCurrentPage,
-    changeFollowingInProgressAC as changeFollowingInProgress,
-    getUsersThunkCreator, UserType, followTC, unfollowTC
+    // changeFollowingInProgressAC as changeFollowingInProgress,
+    getUsersThunkCreator, followTC, unfollowTC,
 } from '../../redux/usersReducer';
 import {AppStateType} from '../../redux/redux-store';
 import React from 'react';
@@ -71,38 +71,28 @@ const mapStateToProps = (state: AppStateType) => {
 
 /*const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        changeFollowStatus: (userID: number) => {
-            dispatch(changeFollowStatus(userID))
-        },
-        setUsers: (users: Array<UserType>) => {
-            dispatch(setUsers(users))
-        },
         setCurrentPage: (currentPage: number) => {
             dispatch(setCurrentPage(currentPage))
         },
-        setTotalUsersCount: (totalCount: number) => {
-            dispatch(setTotalUsersCount(totalCount))
-        },
-        changeIsFetching: (isFetching: boolean) => {
-            dispatch(changeIsFetching(isFetching))
-        },
-        changeFollowingInProgress: (follow: boolean, id: number) => {
-            dispatch(changeFollowingInProgress(follow, id))
-        },
         getUsers: (currentPage: number, count: number) => {
             getUsersThunkCreator(currentPage, count)(dispatch)
+        },
+        follow: (id: number) => {
+            followTC(id)(dispatch)
+        },
+        unfollow: (id: number) => {
+            unfollowTC(id)(dispatch)
         }
     }
-}*/
+}
+
+// ??????? WHY ?????
+export default connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent);*/
+
 
 const mapDispatchToProps = () => {
     return {
-        // changeFollowStatus,
-        // setUsers,
         setCurrentPage,
-        // setTotalUsersCount,
-        // changeIsFetching,
-        // changeFollowingInProgress,
         getUsers: getUsersThunkCreator,
         follow: followTC,
         unfollow: unfollowTC

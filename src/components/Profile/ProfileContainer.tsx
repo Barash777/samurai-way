@@ -2,29 +2,16 @@ import React from 'react';
 import Profile from './Profile';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/redux-store';
-import {setUserProfileAC as setUserProfile} from '../../redux/profileReducer';
+import {getProfileTC} from '../../redux/profileReducer';
 import {useParams} from 'react-router-dom';
-import {profileAPI} from '../../api/api';
 
 
 class ProfileContainer extends React.Component<ProfilePropsType> {
 
     componentDidMount() {
         // console.log(this.props)
-        let userId = this.props?.params?.userId
-        // let userId = this.props?.children
-        // const userId = '2'
-        this.getProfile(userId ? userId : '24797 ')
-    }
-
-    getProfile = (userId: string = '24797 ') => {
-        // this.props.changeIsFetching(true)
-        profileAPI.getProfile(+userId)
-            .then(data => {
-                // const profile = data
-                // console.log(profile)
-                this.props.setUserProfile(data)
-            });
+        const userId = this.props?.params?.userId ?? 24797
+        this.props.getProfile(+userId)
     }
 
     render() {
@@ -61,7 +48,7 @@ const mapStateToProps = (state: AppStateType) => {
 
 const mapDispatchToProps = () => {
     return {
-        setUserProfile
+        getProfile: getProfileTC
     }
 }
 
@@ -71,4 +58,5 @@ function withParams(Component: React.ElementType) {
 }
 
 // export default connect(mapStateToProps, mapDispatchToProps())(ProfileContainer);
+// @ts-ignore
 export default withParams(connect(mapStateToProps, mapDispatchToProps())(ProfileContainer));

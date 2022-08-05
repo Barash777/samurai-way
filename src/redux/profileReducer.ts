@@ -1,4 +1,6 @@
 import {PhotosType} from './usersReducer';
+import {Dispatch} from 'redux';
+import {profileAPI} from '../api/api';
 
 export type PostType = {
     id: number
@@ -100,5 +102,12 @@ export const setUserProfileAC = (profile: any) => {
 }
 
 export type ProfileUnionACType = AddPostACType | UpdateNewPostTextACType | SetUserProfileACType
+
+export const getProfileTC = (id: number) => (dispatch: Dispatch) => {
+    profileAPI.getProfile(id)
+        .then(data => {
+            dispatch(setUserProfileAC(data))
+        });
+}
 
 export default profileReducer;

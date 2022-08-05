@@ -14,11 +14,6 @@ export const usersAPI = {
             .get(`users?page=${currentPage}&count=${count}`,)
             .then(response => response.data)
     },
-    authMe() {
-        return instance
-            .get(`auth/me`,)
-            .then(response => response.data)
-    },
     follow(id: number) {
         return instance
             .post(`follow/${id}`)
@@ -27,6 +22,14 @@ export const usersAPI = {
     unfollow(id: number) {
         return instance
             .delete(`follow/${id}`)
+            .then(response => response.data)
+    },
+}
+
+export const authAPI = {
+    authMe() {
+        return instance
+            .get(`auth/me`,)
             .then(response => response.data)
     },
 }
