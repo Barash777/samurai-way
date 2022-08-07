@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/redux-store';
 import {getProfileTC} from '../../redux/profileReducer';
 import {useParams} from 'react-router-dom';
-import WithAuthRedirect from '../../hoc/WithAuthRedirect';
+// import WithAuthRedirect from '../../hoc/WithAuthRedirect';
 import {compose} from 'redux';
 
 
@@ -60,6 +60,6 @@ function withParams(Component: React.ElementType) {
 export default compose<React.ComponentType>(
     connect(mapStateToProps, mapDispatchToProps()),
     withParams,
-    WithAuthRedirect
+    // WithAuthRedirect
 )
 (ProfileContainer)
