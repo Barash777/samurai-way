@@ -5,7 +5,9 @@ import Preloader from '../../Preloader/Preloader';
 import ProfileStatus from './ProfileStatus';
 
 export type ProfileInfoType = {
-    profile: ProfileType
+    profile: ProfileType,
+    status: string
+    updateProfileStatus: (status: string) => void
 }
 
 function ProfileInfo(props: ProfileInfoType) {
@@ -34,7 +36,10 @@ function ProfileInfo(props: ProfileInfoType) {
                     // src="https://cdn.arstechnica.net/wp-content/uploads/2016/02/5718897981_10faa45ac3_b-640x624.jpg"
                      src={props.profile?.photos?.small ?? 'https://cdn.arstechnica.net/wp-content/uploads/2016/02/5718897981_10faa45ac3_b-640x624.jpg'}
                      alt=""/>
-                <ProfileStatus status={'Hello'}/>
+                <ProfileStatus
+                    status={props.status}
+                    updateProfileStatus={props.updateProfileStatus}
+                />
             </div>
 
 

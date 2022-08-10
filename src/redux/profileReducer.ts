@@ -54,6 +54,7 @@ const initialState = {
     ] as Array<PostType>,
     profile: {} as ProfileType,
     newPostText: '',
+    status: ''
 }
 
 export type ProfileInitialStateType = typeof initialState
@@ -72,6 +73,8 @@ const profileReducer = (state: ProfileInitialStateType = initialState, action: P
             return {...state, newPostText: action.newText}
         case 'SET-USER-PROFILE':
             return {...state, profile: action.profile}
+        case 'SET-PROFILE-STATUS':
+            return {...state, status: action.status}
         default:
             return state
     }
@@ -101,12 +104,44 @@ export const setUserProfileAC = (profile: any) => {
     } as const
 }
 
-export type ProfileUnionACType = AddPostACType | UpdateNewPostTextACType | SetUserProfileACType
+export type SetProfileStatusACType = ReturnType<typeof setProfileStatusAC>
+export const setProfileStatusAC = (status: string) => {
+    return {
+        type: 'SET-PROFILE-STATUS',
+        status
+    } as const
+}
+
+export type ProfileUnionACType = AddPostACType | UpdateNewPostTextACType
+    | SetUserProfileACType | SetProfileStatusACType
 
 export const getProfileTC = (id: number) => (dispatch: Dispatch) => {
     profileAPI.getProfile(id)
         .then(data => {
             dispatch(setUserProfileAC(data))
+        });
+}
+
+export const getProfileStatusTC = (id: number) => (dispatch: Dispatch) => {
+    profileAPI.getStatus(id)
+        .then(data => {
+            dispatch(setProfileStatusAC(data))
+        });
+}
+
+export const updateProfileStatusTC = (status: string) => (dispatch: Dispatch) => {
+    profileAPI.updateStatus(status)
+        .then(data => {
+            // console.log('UPDATE STATUS, res = ', response)
+            // @ts-ignore
+            if (data.resultCode === 0) {
+                dispatch(setProfileStatusAC(status))
+                // console.log('status updated')
+            }
+
+        })
+        .catch(error => {
+            console.log(error.messages[0])
         });
 }
 

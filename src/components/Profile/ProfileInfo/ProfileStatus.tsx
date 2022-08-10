@@ -3,13 +3,14 @@ import React, {ChangeEvent} from 'react';
 
 type ProfileStatusPropsType = {
     status: string
+    updateProfileStatus: (status: string) => void
 }
 
 class ProfileStatus extends React.Component<ProfileStatusPropsType> {
 
     state = {
         editMode: false,
-        value: this.props.status
+        localStatus: this.props.status
     }
 
     onSpanDblClick = () => {
@@ -22,7 +23,7 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType> {
     onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
         this.setState({
             // ...this.state,
-            value: e.currentTarget.value
+            localStatus: e.currentTarget.value
         })
     }
 
@@ -31,6 +32,7 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType> {
             // ...this.state,
             editMode: false
         })
+        this.props.updateProfileStatus(this.state.localStatus)
     }
 
     /*onSpanDblClick() {
@@ -47,14 +49,14 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType> {
                     ? <div>
                         <input
                             autoFocus
-                            value={this.state.value}
+                            value={this.state.localStatus}
                             onChange={this.onChangeInput}
                             onBlur={this.onBlurInput}
                         />
                     </div>
                     : <div>
                         {/*<span onDoubleClick={this.onSpanDblClick.bind(this)}>{this.state.value}</span>*/}
-                        <span onDoubleClick={this.onSpanDblClick}>{this.state.value}</span>
+                        <span onDoubleClick={this.onSpanDblClick}>{this.props.status || 'No status'}</span>
                     </div>}
             </div>
         );
