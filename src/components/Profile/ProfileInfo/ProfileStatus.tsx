@@ -8,6 +8,7 @@ type ProfileStatusPropsType = {
 
 class ProfileStatus extends React.Component<ProfileStatusPropsType> {
 
+    // just for Heroku update
     state = {
         editMode: false,
         localStatus: this.props.status
