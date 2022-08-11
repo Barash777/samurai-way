@@ -29,6 +29,16 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType> {
     }
 
     onBlurInput = () => {
+        this.setNewStatus()
+    }
+
+    onKeyDownEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            this.setNewStatus()
+        }
+    }
+
+    setNewStatus = () => {
         this.setState({
             // ...this.state,
             editMode: false
@@ -43,6 +53,14 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType> {
         })
     }*/
 
+    componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        if (prevProps.status !== this.props.status)
+            this.setState({
+                localStatus: this.props.status
+            })
+        // console.log('Updated')
+    }
+
     render() {
         return (
             <div>
@@ -52,6 +70,7 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType> {
                             autoFocus
                             value={this.state.localStatus}
                             onChange={this.onChangeInput}
+                            onKeyDown={this.onKeyDownEnter}
                             onBlur={this.onBlurInput}
                         />
                     </div>
