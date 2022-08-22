@@ -52,8 +52,7 @@ const initialState = {
             id: 5,
             text: 'From state',
         }
-    ] as Array<MessageItemType>,
-    newMessageText: ''
+    ] as Array<MessageItemType>
 }
 
 export type DialogsInitialStateType = typeof initialState
@@ -61,35 +60,27 @@ export type DialogsInitialStateType = typeof initialState
 const dialogsReducer = (state: DialogsInitialStateType = initialState, action: DialogsUnionACType): DialogsInitialStateType => {
 
     switch (action.type) {
-        case 'UPDATE-NEW-MESSAGE-TEXT':
-            return {...state, newMessageText: action.newText}
         case 'ADD-MESSAGE':
             const newMessage: MessageItemType = {
                 id: state.messages.length + 1,
-                text: state.newMessageText
+                text: action.message
             }
-            return {...state, messages: [...state.messages, newMessage], newMessageText: ''}
+            return {...state, messages: [...state.messages, newMessage]}
         default:
             return state
     }
 
 }
 
-export type UpdateNewMessageTextACType = ReturnType<typeof updateNewMessageTextAC>
-export const updateNewMessageTextAC = (newText: string) => {
-    return {
-        type: 'UPDATE-NEW-MESSAGE-TEXT',
-        newText: newText
-    } as const
-}
 
 export type AddMessageACACType = ReturnType<typeof addMessageAC>
-export const addMessageAC = () => {
+export const addMessageAC = (message: string) => {
     return {
-        type: 'ADD-MESSAGE'
+        type: 'ADD-MESSAGE',
+        message
     } as const
 }
 
-export type DialogsUnionACType = UpdateNewMessageTextACType | AddMessageACACType
+export type DialogsUnionACType = AddMessageACACType
 
 export default dialogsReducer;

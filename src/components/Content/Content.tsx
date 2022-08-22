@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
 import ProfileContainer from '../Profile/ProfileContainer';
-import Login from '../Login/Login';
+import Login from '../Forms/Login/Login';
 import DialogsContainer from '../Dialogs/DialogsContainer';
 import UsersContainer from '../Users/UsersContainer';
 import News from '../News/News';

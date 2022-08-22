@@ -53,7 +53,6 @@ const initialState = {
         }
     ] as Array<PostType>,
     profile: {} as ProfileType,
-    newPostText: '',
     status: ''
 }
 
@@ -65,12 +64,10 @@ const profileReducer = (state: ProfileInitialStateType = initialState, action: P
         case 'ADD-POST':
             const newPost: PostType = {
                 id: state.posts.length + 1,
-                message: state.newPostText,
+                message: action.text,
                 likeCount: 0
             }
-            return {...state, posts: [...state.posts, newPost], newPostText: ''}
-        case 'UPDATE-NEW-POST-TEXT':
-            return {...state, newPostText: action.newText}
+            return {...state, posts: [...state.posts, newPost]}
         case 'SET-USER-PROFILE':
             return {...state, profile: action.profile}
         case 'SET-PROFILE-STATUS':
@@ -78,23 +75,17 @@ const profileReducer = (state: ProfileInitialStateType = initialState, action: P
         default:
             return state
     }
-
 }
+
 
 export type AddPostACType = ReturnType<typeof addPostAC>
-export const addPostAC = () => {
+export const addPostAC = (text: string) => {
     return {
-        type: 'ADD-POST'
+        type: 'ADD-POST',
+        text
     } as const
 }
 
-export type UpdateNewPostTextACType = ReturnType<typeof updateNewPostTextAC>
-export const updateNewPostTextAC = (newText: string) => {
-    return {
-        type: 'UPDATE-NEW-POST-TEXT',
-        newText
-    } as const
-}
 
 export type SetUserProfileACType = ReturnType<typeof setUserProfileAC>
 export const setUserProfileAC = (profile: any) => {
@@ -112,7 +103,7 @@ export const setProfileStatusAC = (status: string) => {
     } as const
 }
 
-export type ProfileUnionACType = AddPostACType | UpdateNewPostTextACType
+export type ProfileUnionACType = AddPostACType
     | SetUserProfileACType | SetProfileStatusACType
 
 export const getProfileTC = (id: number) => (dispatch: Dispatch) => {

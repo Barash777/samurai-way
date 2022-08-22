@@ -1,8 +1,9 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import css from './Dialogs.module.css'
 import {DialogItem} from './DialogItem/DialogItem';
 import {MessageItem} from './MessageItem/MessageItem';
 import {DialogsPropsType} from './DialogsContainer';
+import MessageForm from '../Forms/MessageForm/MessageForm';
 
 
 const Dialogs = (props: DialogsPropsType) => {
@@ -13,16 +14,9 @@ const Dialogs = (props: DialogsPropsType) => {
     const dialogsJSX = dialogsData.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
     const messagesJSX = messagesData.map(m => <MessageItem key={m.id} text={m.text} id={m.id}/>)
 
-    const sendMessageHandler = () => {
-        props.sendMessage()
+    const sendMessageHandler = (message: string) => {
+        props.sendMessage(message)
     }
-
-    const onChangeMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        const text = e.currentTarget.value
-        props.onChangeMessage(text)
-    }
-
-    // alert(props.isAuth)
 
     return (
         <div className={css.dialogsPage}>
@@ -33,17 +27,7 @@ const Dialogs = (props: DialogsPropsType) => {
                 <div>
                     {messagesJSX}
                 </div>
-                <div>
-                    <div>
-                        <textarea
-                            onChange={onChangeMessageHandler}
-                            value={props.newMessageText}
-                        />
-                    </div>
-                    <div>
-                        <button onClick={sendMessageHandler}>Send</button>
-                    </div>
-                </div>
+                <MessageForm sendMessage={sendMessageHandler}/>
             </div>
 
         </div>

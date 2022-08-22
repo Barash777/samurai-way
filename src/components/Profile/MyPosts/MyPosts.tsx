@@ -1,7 +1,8 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import css from './MyPosts.module.css';
 import Post from './Post/Post';
 import {MyPostsPropsType} from './MyPostsContainer';
+import PostForm from '../../Forms/PostForm/PostForm';
 
 
 function MyPosts(props: MyPostsPropsType) {
@@ -9,28 +10,15 @@ function MyPosts(props: MyPostsPropsType) {
     const postsData = props.posts;
     const postsJSX = postsData.map(p => <Post key={p.id} id={p.id} message={p.message} likeCount={p.likeCount}/>)
 
-    const onAddPost = () => {
-        props.addPost()
+    const onAddPost = (text: string) => {
+        props.addPost(text)
     }
 
-    const onChangeTextArea = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewPostText(e.currentTarget.value)
-    }
 
     return (
         <div className={css.postsBlock}>
             <h3>My posts</h3>
-            <div>
-                <div>
-                    <textarea
-                        value={props.newPostText}
-                        onChange={onChangeTextArea}
-                    />
-                </div>
-                <div>
-                    <button onClick={onAddPost}>Add post</button>
-                </div>
-            </div>
+            <PostForm addNewPost={onAddPost}/>
             <div className={css.posts}>
                 {postsJSX}
             </div>
