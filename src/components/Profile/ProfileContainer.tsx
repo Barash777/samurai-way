@@ -6,6 +6,7 @@ import {getProfileStatusTC, getProfileTC, updateProfileStatusTC} from '../../red
 import {useParams} from 'react-router-dom';
 // import WithAuthRedirect from '../../hoc/WithAuthRedirect';
 import {compose} from 'redux';
+import WithAuthRedirect from '../../hoc/WithAuthRedirect';
 
 
 class ProfileContainer extends React.Component<ProfilePropsType> {
@@ -64,6 +65,6 @@ function withParams(Component: React.ElementType) {
 export default compose<React.ComponentType>(
     connect(mapStateToProps, mapDispatchToProps()),
     withParams,
-    // WithAuthRedirect
+    WithAuthRedirect
 )
 (ProfileContainer)

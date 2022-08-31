@@ -7,6 +7,8 @@ const sidebarReducer = (state: SidebarInitialStateType = initialState, action: S
     return state
 }
 
-export type SidebarUnionACType = {}
+export type SidebarUnionACType = TestType
+
+export type TestType = { type: 'SIDEBAR/TEST' }
 
 export default sidebarReducer;

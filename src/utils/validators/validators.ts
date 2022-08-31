@@ -10,21 +10,27 @@ export const maxLengthCreator = (maxLength: number) => (value: string) => {
     return undefined
 }
 
-export const maxLength30 = (value: string) => {
-    if (value && value.length > 30)
-        return 'Max length is 30 symbols'
+export const minLengthCreator = (minLength: number) => (value: string) => {
+    if (value && value.length < minLength)
+        return `Min length is ${minLength} symbols`
     return undefined
 }
 
+/*export const maxLength30 = (value: string) => {
+    if (value && value.length > 30)
+        return 'Max length is 30 symbols'
+    return undefined
+}*/
+
 export const isEmail = (value: string) => {
 
-    if (value
+    if (!value
         .toLowerCase()
         .match(
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         )) {
-        return undefined
+        return 'enter valid email'
     }
-    
-    return 'enter valid email'
+
+    return undefined
 }

@@ -1,19 +1,25 @@
 import React, {useEffect} from 'react';
 import css from './Header.module.css';
 import {NavLink} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppStateType} from '../../redux/redux-store';
-import {AuthInitialStateType} from '../../redux/authReducer';
-import {authMeTC} from '../../redux/authReducer';
+import {authMeTC, logoutTC} from '../../redux/authReducer';
+import {useAppDispatch, useAppSelector} from '../../hooks/main';
+
 
 function Header() {
 
-    const auth = useSelector<AppStateType, AuthInitialStateType>(state => state.auth)
-    const dispatch = useDispatch()
+    const auth = useAppSelector(state => state.auth)
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
-        authMeTC()(dispatch)
+        dispatch(authMeTC())
     }, [dispatch])
+
+    // password
+    //Qwerty1_Asdfgh2
+
+    const logoutHandler = () => {
+        dispatch(logoutTC())
+    }
 
     return (
         <header className={css.header}>
@@ -23,7 +29,10 @@ function Header() {
             />
             <div className={css.loginBlock}>
                 {auth.isAuth
-                    ? auth.login
+                    ? <>
+                        <div>{auth.login}</div>
+                        <button onClick={logoutHandler}>Logout</button>
+                    </>
                     : <NavLink to={'/login'}>Login</NavLink>}
             </div>
         </header>
