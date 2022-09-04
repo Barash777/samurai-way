@@ -1,15 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 // import {Field, InjectedFormProps, reduxForm} from 'redux-form'
 // import {Input} from '../FormsControls/FormsControls';
 // import {required} from '../../../utils/validators/validators';
 import {connect} from 'react-redux';
 import {loginTC as login} from '../../../redux/authReducer';
 import {AppStateType} from '../../../redux/redux-store';
-import {Navigate} from 'react-router-dom';
 import {useForm, SubmitHandler} from 'react-hook-form';
 import {ErrorMessage} from '@hookform/error-message';
-// import _ from "lodash/fp";
-// import {ErrorMessage} from 'formik';
+import {useNavigate} from 'react-router-dom';
 
 
 type Inputs = {
@@ -61,9 +59,17 @@ export function LoginReactHookForm(props: LoginPropsType) {
     //     console.log('test error')
     // }
 
-    if (props.isAuth) {
-        return <Navigate to={'/profile'}/>
-    }
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (props.isAuth) {
+            navigate(-1)
+        }
+    }, [navigate, props.isAuth])
+
+    // if (props.isAuth) {
+    //     return <Navigate to={'/'}/>
+    // }
 
     return (
         <form onSubmit={handleSubmit(onSubmit/*, test*/)}>

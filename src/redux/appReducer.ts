@@ -43,6 +43,7 @@ export const initializeTC = (): AppThunk =>
         dispatch(setInitializedAC('loading'))
         Promise.all([dispatch(authMeTC())])
             .then(() => {
+                // alert('success')
                 dispatch(setInitializedAC('success'))
             })
             .catch(() => {

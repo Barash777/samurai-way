@@ -58,7 +58,7 @@ const mapDispatchToProps = () => {
 }
 
 
-function withParams(Component: React.ElementType) {
+export function withParams(Component: React.ElementType) {
     return (props: any) => <Component {...props} params={useParams()}/>;
 }
 

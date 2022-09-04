@@ -65,6 +65,7 @@ export const authMeTC = (): AppThunk =>
             .then(response => {
                 if (response.resultCode === 0) {
                     const data = response.data
+                    // alert('data.id = ' + data.id)
                     dispatch(setUserDataAC(data.id, data.email, data.login, true))
                 }
             });

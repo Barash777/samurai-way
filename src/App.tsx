@@ -16,15 +16,17 @@ function App() {
         dispatch(initializeTC())
     }, [dispatch])
 
-    return (initialized === ('loading' || 'idle')
-        ? <Preloader/>
-        : initialized === 'failed'
-            ? <div>Something wrong! Try again later!</div>
-            : <div className="app-wrapper">
-                <Header/>
-                <Sidebar/>
-                <Content/>
-            </div>);
+    if (initialized === ('loading' || 'idle'))
+        return <Preloader/>
+
+    if (initialized === 'failed')
+        return <div>Something wrong! Try again later!</div>
+
+    return <div className="app-wrapper">
+        <Header/>
+        <Sidebar/>
+        <Content/>
+    </div>
 
     /*return (
         <div className="app-wrapper">

@@ -7,8 +7,6 @@ import UsersContainer from '../Users/UsersContainer';
 import News from '../News/News';
 import Music from '../Music/Music';
 import Settings from '../Settings/Settings';
-// import {useSelector} from 'react-redux';
-// import {AppStateType} from '../../redux/redux-store';
 
 const Content = () => {
     // const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
