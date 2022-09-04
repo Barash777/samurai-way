@@ -2,7 +2,8 @@ import css from './ProfileInfo.module.css';
 import React from 'react';
 import {ProfileType} from '../../../redux/profileReducer';
 import Preloader from '../../Preloader/Preloader';
-import ProfileStatus from './ProfileStatus';
+// import ProfileStatus from './ProfileStatus';
+import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 
 export type ProfileInfoType = {
     profile: ProfileType,
@@ -36,7 +37,7 @@ function ProfileInfo(props: ProfileInfoType) {
                     // src="https://cdn.arstechnica.net/wp-content/uploads/2016/02/5718897981_10faa45ac3_b-640x624.jpg"
                      src={props.profile?.photos?.small ?? 'https://cdn.arstechnica.net/wp-content/uploads/2016/02/5718897981_10faa45ac3_b-640x624.jpg'}
                      alt=""/>
-                <ProfileStatus
+                <ProfileStatusWithHooks
                     status={props.status}
                     updateProfileStatus={props.updateProfileStatus}
                 />
