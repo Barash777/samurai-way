@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, legacy_createStore as createStore, AnyAction} from 'redux';
+import {applyMiddleware, combineReducers, legacy_createStore as createStore} from 'redux';
 import profileReducer, {ProfileUnionACType} from './profileReducer';
 import dialogsReducer, {DialogsUnionACType} from './dialogsReducer';
 import sidebarReducer, {SidebarUnionACType} from './sidebarReducer';
@@ -33,3 +33,6 @@ export type AppDispatch = ThunkDispatch<AppStateType, unknown, AppActionsType>
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, AppActionsType>
 
 export default store;
+
+// @ts-ignore
+window.store = store

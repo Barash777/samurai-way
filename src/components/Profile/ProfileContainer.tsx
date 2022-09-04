@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/redux-store';
 import {getProfileStatusTC, getProfileTC, updateProfileStatusTC} from '../../redux/profileReducer';
 import {useParams} from 'react-router-dom';
-// import WithAuthRedirect from '../../hoc/WithAuthRedirect';
 import {compose} from 'redux';
 import WithAuthRedirect from '../../hoc/WithAuthRedirect';
 
@@ -12,7 +11,7 @@ import WithAuthRedirect from '../../hoc/WithAuthRedirect';
 class ProfileContainer extends React.Component<ProfilePropsType> {
 
     componentDidMount() {
-        const userId = this.props?.params?.userId ?? 24797
+        const userId = this.props?.params?.userId ?? this.props.loggedUserId
         this.props.getProfile(+userId)
         this.props.getProfileStatus(+userId)
     }
@@ -36,7 +35,9 @@ export type ProfilePropsType = MapStateToPropsType & MapDispatchToPropsType & {
 const mapStateToProps = (state: AppStateType) => {
     return {
         profile: state.profilePage.profile,
-        status: state.profilePage.status
+        status: state.profilePage.status,
+        isAuth: state.auth.isAuth,
+        loggedUserId: state.auth.userId,
     }
 }
 

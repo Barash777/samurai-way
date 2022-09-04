@@ -7,6 +7,9 @@ import {loginTC as login} from '../../../redux/authReducer';
 import {AppStateType} from '../../../redux/redux-store';
 import {Navigate} from 'react-router-dom';
 import {useForm, SubmitHandler} from 'react-hook-form';
+import {ErrorMessage} from '@hookform/error-message';
+// import _ from "lodash/fp";
+// import {ErrorMessage} from 'formik';
 
 
 type Inputs = {
@@ -41,31 +44,40 @@ type FormDataType = {
     email: string
     password: string
     rememberMe: boolean
+    multipleErrorInput: string
 }
+
+// Qwerty1_Asdfgh2
 
 export function LoginReactHookForm(props: LoginPropsType) {
     const {register, handleSubmit, formState: {errors}} = useForm<FormDataType>();
-    const onSubmit: SubmitHandler<FormDataType> = data => {
-        // console.log(data);
+    const onSubmit: SubmitHandler<FormDataType> = (data) => {
+        // console.log('data', data);
         props.login(data.email, data.password, data.rememberMe)
+        // console.log('res in onSubmit', res)
     }
+
+    // const test = () => {
+    //     console.log('test error')
+    // }
 
     if (props.isAuth) {
         return <Navigate to={'/profile'}/>
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit/*, test*/)}>
             <div>
                 <label>Email</label>
                 <input {...register('email', {
                     required: 'email is required',
                     // maxLength: {
                     //     value: 10,
-                    //     message: 'MAX email error' // JS only: <p>error message</p> TS only support string
+                    //     message: 'MAX email error'
                     // }
                 })} />
-                {errors.email && <span>{errors.email.message}</span>}
+                {/*{errors.email && <span>{errors.email.message}</span>}*/}
+                <ErrorMessage errors={errors} name="email"/>
             </div>
             <div>
                 <label>Password</label>
@@ -73,10 +85,26 @@ export function LoginReactHookForm(props: LoginPropsType) {
                     required: 'password is required',
                     minLength: {
                         value: 8,
-                        message: 'Min length is 8' // JS only: <p>error message</p> TS only support string
-                    }
+                        message: 'Min length is 8'
+                    },
+                    /*pattern: {
+                        value: /\d+/,
+                        message: 'This input is number only.'
+                    },*/
                 })} />
-                {errors.password && <span>{errors.password.message}</span>}
+                {/*{errors.password && <span>{errors.password.message}</span>}*/}
+                <ErrorMessage errors={errors} name="password"/>
+
+                {/*<ErrorMessage
+                    errors={errors}
+                    name="password"
+                    render={({messages}) =>
+                        messages &&
+                        Object.entries(messages).map(([type, message]) => (
+                            <p key={type}>{message}</p>
+                        ))
+                    }
+                />*/}
             </div>
             <div>
                 <label>Remember me</label>
@@ -85,6 +113,9 @@ export function LoginReactHookForm(props: LoginPropsType) {
             <div>
                 <input type="submit" value={'Login'}/>
             </div>
+            {props.error && <div style={{color: 'red'}}>
+                <span>!!! {props.error} !!!</span>
+            </div>}
         </form>
     );
 }
@@ -148,13 +179,15 @@ const ReduxLoginForm = reduxForm<FormDataType>({
 
 type MapStateToPropsType = {
     isAuth: boolean
+    error: string | null
 }
 type MapDispatchToPropsType = {
     login: (email: string, password: string, rememberMe: boolean) => void
 }
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        error: state.auth.error
     }
 }
 
