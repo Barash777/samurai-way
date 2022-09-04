@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import css from './Header.module.css';
 import {NavLink} from 'react-router-dom';
-import {authMeTC, logoutTC} from '../../redux/authReducer';
+import {logoutTC} from '../../redux/authReducer';
 import {useAppDispatch, useAppSelector} from '../../hooks/main';
 
 
@@ -10,9 +10,9 @@ function Header() {
     const auth = useAppSelector(state => state.auth)
     const dispatch = useAppDispatch()
 
-    useEffect(() => {
+    /*useEffect(() => {
         dispatch(authMeTC())
-    }, [dispatch])
+    }, [dispatch])*/
 
     // password
     //Qwerty1_Asdfgh2

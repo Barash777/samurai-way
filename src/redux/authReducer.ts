@@ -61,7 +61,7 @@ export default authReducer;
 
 export const authMeTC = (): AppThunk =>
     (dispatch) => {
-        authAPI.authMe()
+        return authAPI.authMe()
             .then(response => {
                 if (response.resultCode === 0) {
                     const data = response.data
