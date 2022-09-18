@@ -6,7 +6,7 @@ import usersReducer, {UsersUnionACType} from './usersReducer';
 import authReducer, {AuthUnionACType} from './authReducer';
 import thunk from 'redux-thunk'
 import {ThunkAction, ThunkDispatch} from 'redux-thunk'
-import {reducer as formReducer} from 'redux-form';
+// import {reducer as formReducer} from 'redux-form';
 import appReducer, {AppUnionACType} from './appReducer';
 
 export const rootReducer = combineReducers({
@@ -16,7 +16,7 @@ export const rootReducer = combineReducers({
     sidebar: sidebarReducer,
     auth: authReducer,
     app: appReducer,
-    form: formReducer
+    // form: formReducer
 });
 
 export type AppStateType = ReturnType<typeof rootReducer>;
