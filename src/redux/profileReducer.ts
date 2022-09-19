@@ -68,6 +68,11 @@ const profileReducer = (state: ProfileInitialStateType = initialState, action: P
                 likeCount: 0
             }
             return {...state, posts: [...state.posts, newPost]}
+        case 'DELETE-POST':
+            return {
+                ...state,
+                posts: state.posts.filter(p => p.id !== action.id)
+            }
         case 'SET-USER-PROFILE':
             return {...state, profile: action.profile}
         case 'SET-PROFILE-STATUS':
@@ -83,6 +88,13 @@ export const addPostAC = (text: string) => {
     return {
         type: 'ADD-POST',
         text
+    } as const
+}
+export type DeletePostACType = ReturnType<typeof deletePostAC>
+export const deletePostAC = (id: number) => {
+    return {
+        type: 'DELETE-POST',
+        id
     } as const
 }
 
@@ -105,6 +117,7 @@ export const setProfileStatusAC = (status: string) => {
 
 export type ProfileUnionACType = AddPostACType
     | SetUserProfileACType | SetProfileStatusACType
+    | DeletePostACType
 
 export const getProfileTC = (id: number) => (dispatch: Dispatch) => {
     profileAPI.getProfile(id)
