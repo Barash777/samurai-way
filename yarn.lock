@@ -1428,6 +1428,18 @@
     schema-utils "^3.0.0"
     source-map "^0.7.3"
 
+"@react-buddy/ide-toolbox@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@react-buddy/ide-toolbox/-/ide-toolbox-2.2.1.tgz#44d5977fbd9459d0221dce9f558f09032864eba9"
+  integrity sha512-oQWiiY0MJKeeHjW0wm6mO4ebarUdAW5z2g2p3gY5lF4ybDqm6CSU0oA9A6VFqGHLyG93w9W6rvRt/Ajd5cNNAQ==
+
+"@react-buddy/palette-antd@^4.1.2":
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/@react-buddy/palette-antd/-/palette-antd-4.1.2.tgz#e621cf914cd7a3ddbc820cef8ac4c246ac2f113d"
+  integrity sha512-h9mk6rzRU0b332YhLwOgR1M6F+Y0KLzpo+SpOeS91jtJXdUBj7+I60Zf8Du3LwmRmVYtWp+QCZNwBjkEB7N8yw==
+  dependencies:
+    "@react-buddy/ide-toolbox" "^2.2.1"
+
 "@rollup/plugin-babel@^5.2.0":
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-babel/-/plugin-babel-5.3.0.tgz#9cb1c5146ddd6a4968ad96f209c50c62f92f9879"
@@ -2965,15 +2977,15 @@ caniuse-api@^3.0.0:
     lodash.memoize "^4.1.2"
     lodash.uniq "^4.5.0"
 
-caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001286:
-  version "1.0.30001402"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001402.tgz"
-  integrity sha512-Mx4MlhXO5NwuvXGgVb+hg65HZ+bhUYsz8QtDGDo2QmaJS2GBX47Xfi2koL86lc8K+l+htXeTEB/Aeqvezoo6Ew==
-
-caniuse-lite@^1.0.30001402:
+caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001286, caniuse-lite@^1.0.30001402:
   version "1.0.30001402"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001402.tgz#aa29e1f47f5055b0d0c07696a67b8b08023d14c8"
   integrity sha512-Mx4MlhXO5NwuvXGgVb+hg65HZ+bhUYsz8QtDGDo2QmaJS2GBX47Xfi2koL86lc8K+l+htXeTEB/Aeqvezoo6Ew==
+
+caniuse-lite@^1.0.30001297:
+  version "1.0.30001407"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001407.tgz#92281a6ee67cb90bfd8a6a1201fcc2dc19b60a15"
+  integrity sha512-4ydV+t4P7X3zH83fQWNDX/mQEzYomossfpViCOx9zHBSMV+rIe3LFqglHHtVyvNl1FhTNxPxs3jei82iqOW04w==
 
 case-sensitive-paths-webpack-plugin@^2.4.0:
   version "2.4.0"

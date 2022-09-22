@@ -12,6 +12,7 @@ function App() {
     const initialized = useAppSelector(state => state.app.initialized)
     const dispatch = useAppDispatch()
 
+
     useEffect(() => {
         dispatch(initializeTC())
     }, [dispatch])

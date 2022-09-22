@@ -5,11 +5,17 @@ import App from './App';
 import store from './redux/redux-store';
 import {BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
+import {DevSupport} from '@react-buddy/ide-toolbox';
+import {ComponentPreviews, useInitial} from './dev';
 
 ReactDOM.render(
     <BrowserRouter>
         <Provider store={store}>
-            <App/>
+            <DevSupport ComponentPreviews={ComponentPreviews}
+                        useInitialHook={useInitial}
+            >
+                <App/>
+            </DevSupport>
         </Provider>
     </BrowserRouter>,
     document.getElementById('root')
