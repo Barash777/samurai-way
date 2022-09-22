@@ -129,42 +129,43 @@ export type UsersUnionACType = ChangeFollowStatusACType | SetUsersACACType |
     ChangeFollowingInProgressACType
 
 
-export const getUsersThunkCreator = (currentPage: number, count: number) => (dispatch: Dispatch) => {
+export const getUsersThunkCreator = (currentPage: number, count: number) => async (dispatch: Dispatch) => {
     // console.log('here')
     dispatch(changeIsFetchingAC(true))
-
-    usersAPI.getUsers(currentPage, count)
-        .then(data => {
-            // console.log('here 2')
-            const users = data?.items
-            dispatch(changeIsFetchingAC(false))
-            dispatch(setUsersAC(users))
-            dispatch(setTotalUsersCountAC(data?.totalCount))
-        });
+    try {
+        const data = await usersAPI.getUsers(currentPage, count)
+        // console.log('here 2')
+        const users = data?.items
+        dispatch(changeIsFetchingAC(false))
+        dispatch(setUsersAC(users))
+        dispatch(setTotalUsersCountAC(data?.totalCount))
+    } catch (e) {
+        console.error('something wrong, e = ', e)
+    }
 }
 
-export const followTC = (id: number) => (dispatch: Dispatch) => {
+export const followTC = (id: number) => async (dispatch: Dispatch) => {
     dispatch(changeFollowingInProgressAC(true, id))
-    usersAPI.follow(id)
-        .then(data => {
-            if (data.resultCode === 0) {
-                dispatch(changeFollowStatusAC(id))
-            }
-        }).finally(() => {
+    try {
+        const data = await usersAPI.follow(id)
+        if (data.resultCode === 0) {
+            dispatch(changeFollowStatusAC(id))
+        }
+    } finally {
         dispatch(changeFollowingInProgressAC(false, id))
-    });
+    }
 }
 
-export const unfollowTC = (id: number) => (dispatch: Dispatch) => {
+export const unfollowTC = (id: number) => async (dispatch: Dispatch) => {
     dispatch(changeFollowingInProgressAC(true, id))
-    usersAPI.unfollow(id)
-        .then(data => {
-            if (data.resultCode === 0) {
-                dispatch(changeFollowStatusAC(id))
-            }
-        }).finally(() => {
+    try {
+        const data = await usersAPI.unfollow(id)
+        if (data.resultCode === 0) {
+            dispatch(changeFollowStatusAC(id))
+        }
+    } finally {
         dispatch(changeFollowingInProgressAC(false, id))
-    });
+    }
 }
 
 export default usersReducer;

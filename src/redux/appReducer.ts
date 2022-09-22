@@ -38,17 +38,14 @@ export type AppUnionACType = SetInitializedACType
 export default appReducer;
 
 export const initializeTC = (): AppThunk =>
-    (dispatch) => {
+    async (dispatch) => {
 
         dispatch(setInitializedAC('loading'))
-        Promise.all([dispatch(authMeTC())])
-            .then(() => {
-                // alert('success')
-                dispatch(setInitializedAC('success'))
-            })
-            .catch(() => {
-                dispatch(setInitializedAC('failed'))
-            })
-
+        try {
+            let res = await Promise.all([dispatch(authMeTC())])
+            dispatch(setInitializedAC('success'))
+        } catch (e) {
+            dispatch(setInitializedAC('failed'))
+        }
 
     }

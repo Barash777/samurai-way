@@ -119,34 +119,36 @@ export type ProfileUnionACType = AddPostACType
     | SetUserProfileACType | SetProfileStatusACType
     | DeletePostACType
 
-export const getProfileTC = (id: number) => (dispatch: Dispatch) => {
-    profileAPI.getProfile(id)
-        .then(data => {
-            dispatch(setUserProfileAC(data))
-        });
+export const getProfileTC = (id: number) => async (dispatch: Dispatch) => {
+    try {
+        const data = await profileAPI.getProfile(id)
+        dispatch(setUserProfileAC(data))
+    } catch (e) {
+        console.error('something wrong, e = ', e)
+    }
 }
 
-export const getProfileStatusTC = (id: number) => (dispatch: Dispatch) => {
-    profileAPI.getStatus(id)
-        .then(data => {
-            dispatch(setProfileStatusAC(data))
-        });
+export const getProfileStatusTC = (id: number) => async (dispatch: Dispatch) => {
+    try {
+        const data = await profileAPI.getStatus(id)
+        dispatch(setProfileStatusAC(data))
+    } catch (e) {
+        console.error('something wrong, e = ', e)
+    }
 }
 
-export const updateProfileStatusTC = (status: string) => (dispatch: Dispatch) => {
-    profileAPI.updateStatus(status)
-        .then(data => {
-            // console.log('UPDATE STATUS, res = ', response)
-            // @ts-ignore
-            if (data.resultCode === 0) {
-                dispatch(setProfileStatusAC(status))
-                // console.log('status updated')
-            }
-
-        })
-        .catch(error => {
-            console.log(error.messages[0])
-        });
+export const updateProfileStatusTC = (status: string) => async (dispatch: Dispatch) => {
+    try {
+        const data = await profileAPI.updateStatus(status)
+        // console.log('UPDATE STATUS, res = ', response)
+        // @ts-ignore
+        if (data.resultCode === 0) {
+            dispatch(setProfileStatusAC(status))
+            // console.log('status updated')
+        }
+    } catch (e) {
+        console.error('something wrong, e = ', e)
+    }
 }
 
 export default profileReducer;

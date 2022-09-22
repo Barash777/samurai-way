@@ -60,39 +60,45 @@ export type AuthUnionACType = SetUserDataACType | SetAuthErrorACType
 export default authReducer;
 
 export const authMeTC = (): AppThunk =>
-    (dispatch) => {
-        return authAPI.authMe()
-            .then(response => {
-                if (response.resultCode === 0) {
-                    const data = response.data
-                    // alert('data.id = ' + data.id)
-                    dispatch(setUserDataAC(data.id, data.email, data.login, true))
-                }
-            });
+    async (dispatch) => {
+        try {
+            const response = await authAPI.authMe()
+            if (response.resultCode === 0) {
+                const data = response.data
+                // alert('data.id = ' + data.id)
+                dispatch(setUserDataAC(data.id, data.email, data.login, true))
+            }
+        } catch (e) {
+            console.error('something wrong, e = ', e)
+        }
     }
+
+
 export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk =>
-    (dispatch) => {
+    async (dispatch) => {
         dispatch(setAuthErrorAC(null))
-        authAPI.login(email, password, rememberMe)
-            .then(response => {
-                // console.log('then in reducer ', response)
-                if (response.resultCode === 0) {
-                    dispatch(authMeTC())
-                } else {
-                    const message = response.messages.length ? response.messages[0] : 'some error'
-                    dispatch(setAuthErrorAC(message))
-                }
-            })
-            .catch((e) => {
-                console.log('error in CATCH reducer', e)
-            });
+        try {
+            const response = await authAPI.login(email, password, rememberMe)
+            // console.log('then in reducer ', response)
+            if (response.resultCode === 0) {
+                dispatch(authMeTC())
+            } else {
+                const message = response.messages.length ? response.messages[0] : 'some error'
+                dispatch(setAuthErrorAC(message))
+            }
+        } catch (e) {
+            console.error('something wrong, e = ', e)
+        }
+
     }
 export const logoutTC = (): AppThunk =>
-    (dispatch) => {
-        authAPI.logout()
-            .then(response => {
-                if (response.resultCode === 0) {
-                    dispatch(setUserDataAC(0, '', '', false))
-                }
-            });
+    async (dispatch) => {
+        try {
+            const response = await authAPI.logout()
+            if (response.resultCode === 0) {
+                dispatch(setUserDataAC(0, '', '', false))
+            }
+        } catch (e) {
+            console.error('something wrong, e = ', e)
+        }
     }
