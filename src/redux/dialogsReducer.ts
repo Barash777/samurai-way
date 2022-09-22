@@ -60,7 +60,7 @@ export type DialogsInitialStateType = typeof initialState
 const dialogsReducer = (state: DialogsInitialStateType = initialState, action: DialogsUnionACType): DialogsInitialStateType => {
 
     switch (action.type) {
-        case 'ADD-MESSAGE':
+        case 'DIALOGS/ADD-MESSAGE':
             const newMessage: MessageItemType = {
                 id: state.messages.length + 1,
                 text: action.message
@@ -76,7 +76,7 @@ const dialogsReducer = (state: DialogsInitialStateType = initialState, action: D
 export type AddMessageACACType = ReturnType<typeof addMessageAC>
 export const addMessageAC = (message: string) => {
     return {
-        type: 'ADD-MESSAGE',
+        type: 'DIALOGS/ADD-MESSAGE',
         message
     } as const
 }

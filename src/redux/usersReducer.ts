@@ -36,33 +36,33 @@ export type UsersInitialStateType = typeof initialState
 const usersReducer = (state: UsersInitialStateType = initialState, action: UsersUnionACType): UsersInitialStateType => {
 
     switch (action.type) {
-        case 'CHANGE-FOLLOW-STATUS':
+        case 'USERS/CHANGE-FOLLOW-STATUS':
             return {
                 ...state,
                 users: state.users.map(u => u.id === action.userID ? {...u, followed: !u.followed} : u)
             }
-        case 'SET-USERS':
+        case 'USERS/SET-USERS':
             return {
                 ...state,
                 users: [...action.users]
                 // users: [...state.users, ...action.users]
             }
-        case 'SET-USERS-CURRENT-PAGE':
+        case 'USERS/SET-USERS-CURRENT-PAGE':
             return {
                 ...state,
                 currentPage: action.currentPage
             }
-        case 'SET-TOTAL-USERS-COUNT':
+        case 'USERS/SET-TOTAL-USERS-COUNT':
             return {
                 ...state,
                 totalUsersCount: action.count
             }
-        case 'CHANGE-IS-FETCHING-USERS':
+        case 'USERS/CHANGE-IS-FETCHING-USERS':
             return {
                 ...state,
                 isFetching: action.isFetching
             }
-        case 'CHANGE-IS-FOLLOWING-IN-PROGRESS':
+        case 'USERS/CHANGE-IS-FOLLOWING-IN-PROGRESS':
             return {
                 ...state,
                 followingInProgress: action.follow
@@ -78,7 +78,7 @@ const usersReducer = (state: UsersInitialStateType = initialState, action: Users
 export type ChangeFollowStatusACType = ReturnType<typeof changeFollowStatusAC>
 export const changeFollowStatusAC = (userID: number) => {
     return {
-        type: 'CHANGE-FOLLOW-STATUS',
+        type: 'USERS/CHANGE-FOLLOW-STATUS',
         userID
     } as const
 }
@@ -86,7 +86,7 @@ export const changeFollowStatusAC = (userID: number) => {
 export type SetUsersACACType = ReturnType<typeof setUsersAC>
 export const setUsersAC = (users: Array<UserType>) => {
     return {
-        type: 'SET-USERS',
+        type: 'USERS/SET-USERS',
         users
     } as const
 }
@@ -94,7 +94,7 @@ export const setUsersAC = (users: Array<UserType>) => {
 export type SetUsersCurrentPageACType = ReturnType<typeof setUsersCurrentPageAC>
 export const setUsersCurrentPageAC = (currentPage: number) => {
     return {
-        type: 'SET-USERS-CURRENT-PAGE',
+        type: 'USERS/SET-USERS-CURRENT-PAGE',
         currentPage
     } as const
 }
@@ -102,7 +102,7 @@ export const setUsersCurrentPageAC = (currentPage: number) => {
 export type SetTotalUsersCountACType = ReturnType<typeof setTotalUsersCountAC>
 export const setTotalUsersCountAC = (count: number) => {
     return {
-        type: 'SET-TOTAL-USERS-COUNT',
+        type: 'USERS/SET-TOTAL-USERS-COUNT',
         count
     } as const
 }
@@ -110,7 +110,7 @@ export const setTotalUsersCountAC = (count: number) => {
 export type ChangeIsFetchingACType = ReturnType<typeof changeIsFetchingAC>
 export const changeIsFetchingAC = (isFetching: boolean) => {
     return {
-        type: 'CHANGE-IS-FETCHING-USERS',
+        type: 'USERS/CHANGE-IS-FETCHING-USERS',
         isFetching
     } as const
 }
@@ -118,7 +118,7 @@ export const changeIsFetchingAC = (isFetching: boolean) => {
 export type ChangeFollowingInProgressACType = ReturnType<typeof changeFollowingInProgressAC>
 export const changeFollowingInProgressAC = (follow: boolean, id: number) => {
     return {
-        type: 'CHANGE-IS-FOLLOWING-IN-PROGRESS',
+        type: 'USERS/CHANGE-IS-FOLLOWING-IN-PROGRESS',
         follow,
         id
     } as const

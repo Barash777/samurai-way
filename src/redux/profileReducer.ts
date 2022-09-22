@@ -61,21 +61,21 @@ export type ProfileInitialStateType = typeof initialState
 const profileReducer = (state: ProfileInitialStateType = initialState, action: ProfileUnionACType): ProfileInitialStateType => {
 
     switch (action.type) {
-        case 'ADD-POST':
+        case 'PROFILE/ADD-POST':
             const newPost: PostType = {
                 id: state.posts.length + 1,
                 message: action.text,
                 likeCount: 0
             }
             return {...state, posts: [...state.posts, newPost]}
-        case 'DELETE-POST':
+        case 'PROFILE/DELETE-POST':
             return {
                 ...state,
                 posts: state.posts.filter(p => p.id !== action.id)
             }
-        case 'SET-USER-PROFILE':
+        case 'PROFILE/SET-USER-PROFILE':
             return {...state, profile: action.profile}
-        case 'SET-PROFILE-STATUS':
+        case 'PROFILE/SET-PROFILE-STATUS':
             return {...state, status: action.status}
         default:
             return state
@@ -86,14 +86,14 @@ const profileReducer = (state: ProfileInitialStateType = initialState, action: P
 export type AddPostACType = ReturnType<typeof addPostAC>
 export const addPostAC = (text: string) => {
     return {
-        type: 'ADD-POST',
+        type: 'PROFILE/ADD-POST',
         text
     } as const
 }
 export type DeletePostACType = ReturnType<typeof deletePostAC>
 export const deletePostAC = (id: number) => {
     return {
-        type: 'DELETE-POST',
+        type: 'PROFILE/DELETE-POST',
         id
     } as const
 }
@@ -102,7 +102,7 @@ export const deletePostAC = (id: number) => {
 export type SetUserProfileACType = ReturnType<typeof setUserProfileAC>
 export const setUserProfileAC = (profile: any) => {
     return {
-        type: 'SET-USER-PROFILE',
+        type: 'PROFILE/SET-USER-PROFILE',
         profile
     } as const
 }
@@ -110,7 +110,7 @@ export const setUserProfileAC = (profile: any) => {
 export type SetProfileStatusACType = ReturnType<typeof setProfileStatusAC>
 export const setProfileStatusAC = (status: string) => {
     return {
-        type: 'SET-PROFILE-STATUS',
+        type: 'PROFILE/SET-PROFILE-STATUS',
         status
     } as const
 }
