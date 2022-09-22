@@ -144,10 +144,10 @@ export const getUsersThunkCreator = (currentPage: number, count: number) => asyn
     }
 }
 
-export const followTC = (id: number) => async (dispatch: Dispatch) => {
+export const followUnfollowCommon = async (id: number, fn: (id: number) => Promise<any>, dispatch: Dispatch) => {
     dispatch(changeFollowingInProgressAC(true, id))
     try {
-        const data = await usersAPI.follow(id)
+        const data = await fn(id)
         if (data.resultCode === 0) {
             dispatch(changeFollowStatusAC(id))
         }
@@ -156,16 +156,12 @@ export const followTC = (id: number) => async (dispatch: Dispatch) => {
     }
 }
 
-export const unfollowTC = (id: number) => async (dispatch: Dispatch) => {
-    dispatch(changeFollowingInProgressAC(true, id))
-    try {
-        const data = await usersAPI.unfollow(id)
-        if (data.resultCode === 0) {
-            dispatch(changeFollowStatusAC(id))
-        }
-    } finally {
-        dispatch(changeFollowingInProgressAC(false, id))
-    }
+export const followTC = (id: number) => (dispatch: Dispatch) => {
+    followUnfollowCommon(id, usersAPI.follow.bind(usersAPI), dispatch)
+}
+
+export const unfollowTC = (id: number) => (dispatch: Dispatch) => {
+    followUnfollowCommon(id, usersAPI.unfollow.bind(usersAPI), dispatch)
 }
 
 export default usersReducer;
