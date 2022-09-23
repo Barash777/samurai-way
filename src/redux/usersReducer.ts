@@ -5,6 +5,7 @@
 
 import {usersAPI} from '../api/api';
 import {Dispatch} from 'redux';
+// import {updateObjectInArray} from '../utils/object-helpers';
 
 export type PhotosType = {
     small: string
@@ -40,6 +41,7 @@ const usersReducer = (state: UsersInitialStateType = initialState, action: Users
             return {
                 ...state,
                 users: state.users.map(u => u.id === action.userID ? {...u, followed: !u.followed} : u)
+                // users: updateObjectInArray(state.users, 'id', action.userID, {followed: true})
             }
         case 'USERS/SET-USERS':
             return {
