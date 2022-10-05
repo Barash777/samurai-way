@@ -5,8 +5,10 @@
   "homepage": "",
   "dependencies": {
     "@hookform/error-message": "^2.0.0",
+    "@react-buddy/ide-toolbox": "^2.2.1",
+    "@react-buddy/palette-antd": "^4.1.2",
     "@testing-library/jest-dom": "5.14.1",
-    "@testing-library/react": "12.0.0",
+    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "13.2.1",
     "@types/redux-thunk": "^2.1.0",
     "antd": "4.18.7",
@@ -29,9 +31,7 @@
     "reselect": "^4.1.6",
     "typescript": "4.4.2",
     "uuid": "8.3.2",
-    "web-vitals": "2.1.0",
-    "@react-buddy/ide-toolbox": "^2.2.1",
-    "@react-buddy/palette-antd": "^4.1.2"
+    "web-vitals": "2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
