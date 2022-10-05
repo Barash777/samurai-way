@@ -3,7 +3,6 @@
   "homepage": "https://Barash777.github.io/samurai-way",
   "version": "0.1.0",
   "private": true,
-  "homepage": "",
   "dependencies": {
     "@hookform/error-message": "^2.0.0",
     "@react-buddy/ide-toolbox": "^2.2.1",
