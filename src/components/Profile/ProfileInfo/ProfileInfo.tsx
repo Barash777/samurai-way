@@ -11,6 +11,7 @@ export type ProfileInfoType = {
     status: string
     updateProfileStatus: (status: string) => void
     isOwner: boolean
+    savePhoto: (file: any) => void
 }
 
 function ProfileInfo(props: ProfileInfoType) {
@@ -18,9 +19,6 @@ function ProfileInfo(props: ProfileInfoType) {
 
     const avaPath = props.profile?.photos?.large || props.profile?.photos?.small || defaultAvatar
 
-    if (!props.profile?.userId) {
-        return <Preloader/>
-    }
 
     /*export type ProfileType = {
         contacts: ContactsType
@@ -30,6 +28,21 @@ function ProfileInfo(props: ProfileInfoType) {
 
     // console.log('isOwner = ', props.isOwner)
 
+    const onPhotoSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+        // console.log('photo selected')
+        const files = e.target.files as FileList;
+        console.log(files)
+        if (files.length > 0) {
+            const file = files[0]
+            // console.log('save photo')
+            props.savePhoto(file)
+        }
+    }
+
+    if (!props.profile?.userId) {
+        return <Preloader/>
+    }
+
     return (
         <>
             <div className={css.description}>
@@ -38,7 +51,7 @@ function ProfileInfo(props: ProfileInfoType) {
                     //  src={props.profile?.photos?.large || props.profile?.photos?.small || 'https://cdn.arstechnica.net/wp-content/uploads/2016/02/5718897981_10faa45ac3_b-640x624.jpg'}
                      src={avaPath}
                      alt=""/>
-                {props.isOwner && <input type={"file"}/>}
+                {props.isOwner && <input type={"file"} onChange={onPhotoSelected}/>}
                 <ProfileStatusWithHooks
                     status={props.status}
                     updateProfileStatus={props.updateProfileStatus}

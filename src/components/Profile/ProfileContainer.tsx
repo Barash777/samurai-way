@@ -2,7 +2,7 @@ import React from 'react';
 import Profile from './Profile';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/redux-store';
-import {getProfileStatusTC, getProfileTC, updateProfileStatusTC} from '../../redux/profileReducer';
+import {getProfileStatusTC, getProfileTC, savePhotoTC, updateProfileStatusTC} from '../../redux/profileReducer';
 import {useParams} from 'react-router-dom';
 import {compose} from 'redux';
 import WithAuthRedirect from '../../hoc/WithAuthRedirect';
@@ -73,7 +73,8 @@ const mapDispatchToProps = () => {
     return {
         getProfile: getProfileTC,
         getProfileStatus: getProfileStatusTC,
-        updateProfileStatus: updateProfileStatusTC
+        updateProfileStatus: updateProfileStatusTC,
+        savePhoto: savePhotoTC
     }
 }
 

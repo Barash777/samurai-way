@@ -5,6 +5,7 @@ import {ProfilePropsType} from './ProfileContainer';
 
 type ProfilePropsTypeWithOwner = ProfilePropsType & {
     isOwner: boolean
+    savePhoto: (file: any) => void
 }
 
 function Profile(props: ProfilePropsTypeWithOwner) {
@@ -19,6 +20,7 @@ function Profile(props: ProfilePropsTypeWithOwner) {
                 status={props.status}
                 updateProfileStatus={props.updateProfileStatus}
                 isOwner={props.isOwner}
+                savePhoto={props.savePhoto}
             />
             <MyPostsContainer/>
         </div>
