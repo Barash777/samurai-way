@@ -10,6 +10,7 @@ export type ProfileInfoType = {
     profile: ProfileType,
     status: string
     updateProfileStatus: (status: string) => void
+    isOwner: boolean
 }
 
 function ProfileInfo(props: ProfileInfoType) {
@@ -27,6 +28,8 @@ function ProfileInfo(props: ProfileInfoType) {
         lookingForAJobDescription: string
     }*/
 
+    // console.log('isOwner = ', props.isOwner)
+
     return (
         <>
             <div className={css.description}>
@@ -35,6 +38,7 @@ function ProfileInfo(props: ProfileInfoType) {
                     //  src={props.profile?.photos?.large || props.profile?.photos?.small || 'https://cdn.arstechnica.net/wp-content/uploads/2016/02/5718897981_10faa45ac3_b-640x624.jpg'}
                      src={avaPath}
                      alt=""/>
+                {props.isOwner && <input type={"file"}/>}
                 <ProfileStatusWithHooks
                     status={props.status}
                     updateProfileStatus={props.updateProfileStatus}

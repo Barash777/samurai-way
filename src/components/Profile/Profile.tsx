@@ -3,8 +3,11 @@ import ProfileInfo from './ProfileInfo/ProfileInfo';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 import {ProfilePropsType} from './ProfileContainer';
 
+type ProfilePropsTypeWithOwner = ProfilePropsType & {
+    isOwner: boolean
+}
 
-function Profile(props: ProfilePropsType) {
+function Profile(props: ProfilePropsTypeWithOwner) {
 
     // console.log(props)
 
@@ -15,6 +18,7 @@ function Profile(props: ProfilePropsType) {
                 profile={props.profile}
                 status={props.status}
                 updateProfileStatus={props.updateProfileStatus}
+                isOwner={props.isOwner}
             />
             <MyPostsContainer/>
         </div>
