@@ -151,7 +151,6 @@ export const updateProfileStatusTC = (status: string) => async (dispatch: Dispat
     try {
         const data = await profileAPI.updateStatus(status)
         // console.log('UPDATE STATUS, res = ', response)
-        // @ts-ignore
         if (data.resultCode === 0) {
             dispatch(setProfileStatusAC(status))
             // console.log('status updated')
@@ -161,13 +160,13 @@ export const updateProfileStatusTC = (status: string) => async (dispatch: Dispat
     }
 }
 
-export const savePhotoTC = (file: any) => async (dispatch: Dispatch) => {
+export const savePhotoTC = (file: File) => async (dispatch: Dispatch) => {
     try {
         const data = await profileAPI.savePhoto(file)
-        // @ts-ignore
         if (data.resultCode === 0) {
-            dispatch(savePhotoAC(data.photos))
-            // console.log('status updated')
+            dispatch(savePhotoAC(data.data.photos))
+            // console.log('photos updated')
+            // console.log('data.photos = ', data.data.photos)
         }
     } catch (e) {
         console.error('something wrong, e = ', e)

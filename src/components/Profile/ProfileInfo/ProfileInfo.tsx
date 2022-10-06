@@ -11,7 +11,7 @@ export type ProfileInfoType = {
     status: string
     updateProfileStatus: (status: string) => void
     isOwner: boolean
-    savePhoto: (file: any) => void
+    savePhoto: (file: File) => void
 }
 
 function ProfileInfo(props: ProfileInfoType) {
@@ -31,7 +31,8 @@ function ProfileInfo(props: ProfileInfoType) {
     const onPhotoSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
         // console.log('photo selected')
         const files = e.target.files as FileList;
-        console.log(files)
+        // console.log(files)
+        // console.log(files[0])
         if (files.length > 0) {
             const file = files[0]
             // console.log('save photo')

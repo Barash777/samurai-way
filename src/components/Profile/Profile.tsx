@@ -5,7 +5,7 @@ import {ProfilePropsType} from './ProfileContainer';
 
 type ProfilePropsTypeWithOwner = ProfilePropsType & {
     isOwner: boolean
-    savePhoto: (file: any) => void
+    savePhoto: (file: File) => void
 }
 
 function Profile(props: ProfilePropsTypeWithOwner) {
