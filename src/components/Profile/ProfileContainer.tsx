@@ -11,10 +11,24 @@ import WithAuthRedirect from '../../hoc/WithAuthRedirect';
 class ProfileContainer extends React.Component<ProfilePropsType> {
 
     componentDidMount() {
+        this.update()
+    }
+
+    componentDidUpdate(prevProps: Readonly<ProfilePropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        if (this.props?.params?.userId !== prevProps?.params?.userId) {
+            this.update()
+        }
+    }
+
+    update() {
         const userId = this.props?.params?.userId ?? this.props.loggedUserId
         this.props.getProfile(+userId)
         this.props.getProfileStatus(+userId)
     }
+
+    /*shouldComponentUpdate(nextProps: Readonly<ProfilePropsType>, nextState: Readonly<{}>, nextContext: any): boolean {
+        // return this.props?.params?.userId !== nextProps?.params?.userId
+    }*/
 
     render() {
         return (
