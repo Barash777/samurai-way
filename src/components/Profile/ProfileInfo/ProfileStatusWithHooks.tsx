@@ -39,6 +39,7 @@ const ProfileStatusWithHooks = (props: ProfileStatusPropsType) => {
 
     return (
         <div>
+            <b>status: </b>
             {editMode
                 ? <div>
                     <input
