@@ -6,7 +6,8 @@ const initialState = {
     email: '',
     login: '',
     isAuth: false,
-    error: null as (string | null)
+    error: null as (string | null),
+    captchaUrl: null as (string | null)
 }
 
 export type AuthInitialStateType = typeof initialState
@@ -16,6 +17,7 @@ const authReducer = (state: AuthInitialStateType = initialState, action: AuthUni
     switch (action.type) {
         case 'AUTH/SET-USER-DATA':
         case 'AUTH/SET-AUTH-ERROR':
+        case 'AUTH/SET-CAPTCHA-URL':
             return {
                 ...state,
                 ...action.payload
@@ -47,7 +49,15 @@ export const setAuthErrorAC = (error: string | null) => {
         }
     } as const
 }
-
+export type SetCaptchaUrlAC = ReturnType<typeof setCaptchaUrlAC>
+export const setCaptchaUrlAC = (captchaUrl: string | null) => {
+    return {
+        type: 'AUTH/SET-CAPTCHA-URL',
+        payload: {
+            captchaUrl
+        }
+    } as const
+}
 // export type LogoutACType = ReturnType<typeof setUserDataAC>
 // export const logoutAC = () => {
 //     return {
@@ -55,7 +65,7 @@ export const setAuthErrorAC = (error: string | null) => {
 //     } as const
 // }
 
-export type AuthUnionACType = SetUserDataACType | SetAuthErrorACType
+export type AuthUnionACType = SetUserDataACType | SetAuthErrorACType | SetCaptchaUrlAC
 
 export default authReducer;
 
@@ -89,7 +99,6 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): A
         } catch (e) {
             console.error('something wrong, e = ', e)
         }
-
     }
 export const logoutTC = (): AppThunk =>
     async (dispatch) => {
@@ -98,6 +107,17 @@ export const logoutTC = (): AppThunk =>
             if (response.resultCode === 0) {
                 dispatch(setUserDataAC(0, '', '', false))
             }
+        } catch (e) {
+            console.error('something wrong, e = ', e)
+        }
+    }
+export const getCaptchaUrl = (): AppThunk =>
+    async (dispatch) => {
+        dispatch(setAuthErrorAC(null))
+        try {
+            const data = await authAPI.getCaptchaUrl()
+            const captchaUrl = data.url
+            dispatch(setCaptchaUrlAC(captchaUrl))
         } catch (e) {
             console.error('something wrong, e = ', e)
         }
