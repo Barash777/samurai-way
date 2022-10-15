@@ -3,6 +3,7 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 type ProfileStatusPropsType = {
     status: string
     updateProfileStatus: (status: string) => void
+    isOwner: boolean
 }
 
 const ProfileStatusWithHooks = (props: ProfileStatusPropsType) => {
@@ -11,7 +12,7 @@ const ProfileStatusWithHooks = (props: ProfileStatusPropsType) => {
     const [localStatus, setLocalStatus] = useState<string>(props.status)
 
     const onSpanDblClick = () => {
-        setEditMode(true)
+        props.isOwner && setEditMode(true)
     }
 
     const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -41,19 +42,15 @@ const ProfileStatusWithHooks = (props: ProfileStatusPropsType) => {
         <div>
             <b>status: </b>
             {editMode
-                ? <div>
-                    <input
-                        autoFocus
-                        value={localStatus}
-                        onChange={onChangeInput}
-                        onKeyDown={onKeyDownEnter}
-                        onBlur={onBlurInput}
-                    />
-                </div>
-                : <div>
-                    {/*<span onDoubleClick={this.onSpanDblClick.bind(this)}>{this.state.value}</span>*/}
-                    <span onDoubleClick={onSpanDblClick}>{props.status || 'No status'}</span>
-                </div>}
+                ? <input
+                    autoFocus
+                    value={localStatus}
+                    onChange={onChangeInput}
+                    onKeyDown={onKeyDownEnter}
+                    onBlur={onBlurInput}
+                />
+                : <span onDoubleClick={onSpanDblClick}>{props.status || 'No status'}</span>
+            }
         </div>
     );
 }

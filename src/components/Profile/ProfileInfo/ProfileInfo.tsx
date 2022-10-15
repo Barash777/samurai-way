@@ -1,10 +1,10 @@
 import css from './ProfileInfo.module.css';
 import React from 'react';
-import {ContactsType, ProfileType} from '../../../redux/profileReducer';
+import {ProfileType} from '../../../redux/profileReducer';
 import Preloader from '../../Preloader/Preloader';
-// import ProfileStatus from './ProfileStatus';
 import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 import defaultAvatar from "../../../assets/images/default_avatar.png";
+import {About} from "./About/About";
 
 export type ProfileInfoType = {
     profile: ProfileType,
@@ -43,47 +43,14 @@ function ProfileInfo(props: ProfileInfoType) {
                 <ProfileStatusWithHooks
                     status={props.status}
                     updateProfileStatus={props.updateProfileStatus}
+                    isOwner={props.isOwner}
                 />
             </div>
 
-            <About profile={props.profile}/>
+            <About profile={props.profile} isOwner={props.isOwner}/>
 
         </>
     );
-}
-
-type ContactPropsType = {
-    title: string
-    value: string
-}
-
-const Contact = ({title, value}: ContactPropsType) => {
-
-    return <div style={{marginLeft: '10px'}}>
-        <b>{title}:</b> {value}
-    </div>
-}
-
-type AboutPropsType = {
-    profile: ProfileType
-}
-
-const About = (props: AboutPropsType) => {
-    return <div className={css.aboutMeBlock}>
-        <h3>About me</h3>
-        <p>My name is {props.profile?.fullName}</p>
-        <p>{props.profile?.aboutMe}</p>
-        {props.profile.lookingForAJob
-            ? <div>I'm looking for a job!!! {props.profile.lookingForAJobDescription}</div>
-            : ''}
-        <div>
-            <b>Contacts:</b>
-            {Object.keys(props.profile.contacts).map((k) => <Contact
-                key={k} title={k}
-                value={props.profile.contacts[k as keyof ContactsType]}
-            />)}
-        </div>
-    </div>
 }
 
 export default ProfileInfo;

@@ -9,6 +9,7 @@ describe('something', () => {
     test('check profile status', () => {
         const component = create(<ProfileStatusWithHooks
             status={'status'}
+            isOwner={true}
             updateProfileStatus={() => {
             }}
         />)
@@ -19,6 +20,7 @@ describe('something', () => {
     test('check profile status again', () => {
         const component = create(<ProfileStatusWithHooks
             status={'status'}
+            isOwner={true}
             updateProfileStatus={() => {
             }}
         />)
@@ -30,6 +32,7 @@ describe('something', () => {
     test('check input appears and span hide', () => {
         const component = create(<ProfileStatusWithHooks
             status={'status'}
+            isOwner={true}
             updateProfileStatus={() => {
             }}
         />)
