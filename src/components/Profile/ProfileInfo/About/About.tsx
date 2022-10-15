@@ -1,14 +1,17 @@
 import {ContactsType, ProfileType} from "../../../../redux/profileReducer";
 import React, {ChangeEvent, useState} from "react";
 import css from "./About.module.css";
-import {SubmitHandler, useForm} from "react-hook-form";
+import {RegisterOptions, SubmitHandler, useFieldArray, useForm} from "react-hook-form";
+import {UseFormRegister} from "react-hook-form/dist/types/form";
+import {useAppDispatch} from "../../../../hooks/main";
 
 type AboutPropsType = {
     profile: ProfileType
     isOwner: boolean
+    saveProfile: (profile: ProfileType) => void
 }
 
-export const About = ({profile, isOwner}: AboutPropsType) => {
+export const About = ({profile, isOwner, saveProfile}: AboutPropsType) => {
 
     const [editMode, setEditMode] = useState<boolean>(false)
 
@@ -17,14 +20,15 @@ export const About = ({profile, isOwner}: AboutPropsType) => {
     }
 
     if (editMode) {
-        return <AboutForm profile={profile} isOwner={isOwner} editMode={editMode} changeMode={setEditMode}/>
+        return <AboutForm profile={profile} isOwner={isOwner} editMode={editMode} changeMode={setEditMode}
+                          saveProfile={saveProfile}/>
     }
 
     return <div className={css.aboutMeBlock}>
         {isOwner && !editMode && <button onClick={onButtonEditClickHandler}>Edit profile</button>}
         <h3>Profile info:</h3>
-        <p>My name is {profile?.fullName}</p>
-        <p>About me: {profile?.aboutMe}</p>
+        <div>My name is {profile?.fullName}</div>
+        <div>About me: {profile?.aboutMe}</div>
         {profile.lookingForAJob
             ? <div>I'm looking for a job!!! {profile.lookingForAJobDescription}</div>
             : ''}
@@ -33,7 +37,6 @@ export const About = ({profile, isOwner}: AboutPropsType) => {
             {Object.keys(profile.contacts).map((k) => <Contact
                 key={k}
                 title={k}
-                editMode={editMode}
                 value={profile.contacts[k as keyof ContactsType]}
             />)}
         </div>
@@ -46,48 +49,78 @@ type AboutFormPropsType = {
     isOwner: boolean
     editMode: boolean
     changeMode: (editMode: boolean) => void
+    saveProfile: (profile: ProfileType) => void
 }
 
 type FormDataType = {
-    message: string
+    fullName: string
+    aboutMe: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    contacts: ContactsType
 }
 
-export const AboutForm = ({profile, isOwner, editMode, changeMode}: AboutFormPropsType) => {
+export const AboutForm = ({profile, isOwner, editMode, changeMode, saveProfile}: AboutFormPropsType) => {
     const {register, handleSubmit, formState: {errors}} = useForm<FormDataType>();
+    const dispatch = useAppDispatch()
+    /*const {fields} = useFieldArray({
+        contacts, // control props comes from useForm (optional: if you are using FormContext)
+        name: "test", // unique name for your Field Array
+    });*/
+
     const onSubmit: SubmitHandler<FormDataType> = data => {
         console.log(data);
         changeMode(!editMode)
-        alert(data.message)
+        saveProfile(data as ProfileType)
+
+        // alert(data.message)
         // sendMessage(data.message)
     }
 
     return <div className={css.aboutMeBlock}>
         <form onSubmit={handleSubmit(onSubmit)}>
+
             {isOwner &&
                 <>
                     {editMode && <input type="submit" value={'Save profile'}/>}
                 </>}
-            <div>
-                <input {...register('message', {
-                    required: 'message is required',
-                })}
-                       placeholder={'message text'}
-                />
-            </div>
             <h3>Profile info:</h3>
-            <p>My name is {profile?.fullName}</p>
-            <p>About me: {profile?.aboutMe}</p>
-            {profile.lookingForAJob
-                ? <div>I'm looking for a job!!! {profile.lookingForAJobDescription}</div>
-                : ''}
+            <div>My name is <input {...register('fullName', {
+                required: 'name is required',
+                value: profile?.fullName
+            })} placeholder={'name'}/></div>
+            <div>About me: <input {...register('aboutMe', {
+                required: 'about me is required',
+                value: profile?.aboutMe
+            })} placeholder={'about me'}/></div>
+
+            <div>
+                <textarea {...register('lookingForAJobDescription', {
+                    required: 'looking for a job description is required',
+                    value: profile?.lookingForAJobDescription
+                })} placeholder={'looking for a job description'}/>
+            </div>
+            <div>
+                <input id={'lookingForAJob'} type={'checkbox'} {...register('lookingForAJob', {
+                    // required: 'about me is required',
+                    value: profile?.lookingForAJob
+                })}/>
+                <label htmlFor="lookingForAJob">looking for a job?</label>
+            </div>
             <div>
                 <b>Contacts:</b>
-                {Object.keys(profile.contacts).map((k) => <Contact
+                {Object.keys(profile.contacts).map((k, index) => (
+                        <div key={k} style={{marginLeft: '10px'}}>
+                            <b>{k}:</b> <input/>
+                        </div>
+                    )
+                    /*<Contact
                     key={k}
                     title={k}
                     editMode={editMode}
+                    register={register}
                     value={profile.contacts[k as keyof ContactsType]}
-                />)}
+                />*/)}
             </div>
         </form>
     </div>
@@ -113,10 +146,9 @@ export const AboutForm = ({profile, isOwner, editMode, changeMode}: AboutFormPro
 type ContactPropsType = {
     title: string
     value: string
-    editMode: boolean
 }
 
-export const Contact = ({title, value, editMode}: ContactPropsType) => {
+export const Contact = ({title, value}: ContactPropsType) => {
 
     const [localValue, setLocalValue] = useState(value ?? undefined)
 
@@ -125,9 +157,6 @@ export const Contact = ({title, value, editMode}: ContactPropsType) => {
     }
 
     return <div style={{marginLeft: '10px'}}>
-        <b>{title}:</b> {editMode ? <input
-        value={localValue}
-        onChange={onChangeInput}
-    /> : value}
+        <b>{title}:</b> {value}
     </div>
 }

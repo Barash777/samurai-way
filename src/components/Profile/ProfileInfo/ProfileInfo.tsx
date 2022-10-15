@@ -12,6 +12,7 @@ export type ProfileInfoType = {
     updateProfileStatus: (status: string) => void
     isOwner: boolean
     savePhoto: (file: File) => void
+    saveProfile: (profile: ProfileType) => void
 }
 
 function ProfileInfo(props: ProfileInfoType) {
@@ -47,7 +48,7 @@ function ProfileInfo(props: ProfileInfoType) {
                 />
             </div>
 
-            <About profile={props.profile} isOwner={props.isOwner}/>
+            <About profile={props.profile} isOwner={props.isOwner} saveProfile={props.saveProfile}/>
 
         </>
     );
