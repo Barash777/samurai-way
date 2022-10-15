@@ -84,15 +84,18 @@ export const authMeTC = (): AppThunk =>
     }
 
 
-export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk =>
+export const loginTC = (email: string, password: string, rememberMe: boolean, captcha?: string | null): AppThunk =>
     async (dispatch) => {
         dispatch(setAuthErrorAC(null))
         try {
-            const response = await authAPI.login(email, password, rememberMe)
+            const response = await authAPI.login(email, password, rememberMe, captcha)
             // console.log('then in reducer ', response)
             if (response.resultCode === 0) {
                 dispatch(authMeTC())
             } else {
+                if (response.resultCode === 10) {
+                    dispatch(getCaptchaUrl())
+                }
                 const message = response.messages.length ? response.messages[0] : 'some error'
                 dispatch(setAuthErrorAC(message))
             }

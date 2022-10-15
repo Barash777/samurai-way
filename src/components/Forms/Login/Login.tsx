@@ -11,14 +11,15 @@ type FormDataType = {
     email: string
     password: string
     rememberMe: boolean
-    multipleErrorInput: string
+    // multipleErrorInput: string
+    captcha?: string | null
 }
 
 
 export function LoginReactHookForm(props: LoginPropsType) {
     const {register, handleSubmit, formState: {errors}} = useForm<FormDataType>();
     const onSubmit: SubmitHandler<FormDataType> = (data) => {
-        props.login(data.email, data.password, data.rememberMe)
+        props.login(data.email, data.password, data.rememberMe, data.captcha)
     }
 
     const navigate = useNavigate();
@@ -72,6 +73,14 @@ export function LoginReactHookForm(props: LoginPropsType) {
                 <label>Remember me</label>
                 <input type={'checkbox'} {...register('rememberMe')} />
             </div>
+            {props.captchaUrl && <div>
+                <div><img src={props.captchaUrl} alt={'captcha'}/></div>
+                <label>Captcha</label>
+                <input {...register('captcha', {
+                    required: 'captcha is required'
+                })} />
+                <ErrorMessage errors={errors} name="captcha"/>
+            </div>}
             <div>
                 <input type="submit" value={'Login'}/>
             </div>
@@ -85,14 +94,16 @@ export function LoginReactHookForm(props: LoginPropsType) {
 type MapStateToPropsType = {
     isAuth: boolean
     error: string | null
+    captchaUrl: string | null
 }
 type MapDispatchToPropsType = {
-    login: (email: string, password: string, rememberMe: boolean) => void
+    login: (email: string, password: string, rememberMe: boolean, captcha?: string | null) => void
 }
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         isAuth: state.auth.isAuth,
-        error: state.auth.error
+        error: state.auth.error,
+        captchaUrl: state.auth.captchaUrl
     }
 }
 
