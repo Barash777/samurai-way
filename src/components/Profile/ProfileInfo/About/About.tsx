@@ -110,13 +110,12 @@ export const AboutForm = ({profile, isOwner, editMode, changeMode, saveProfile}:
                     const key = k as keyof ContactsType
                     return <div key={key} style={{marginLeft: '10px'}}>
                         <b>{key}:</b> <input {...register(`contacts.${key}`, {
-                        // required: 'about me is required',
                         value: profile?.contacts[key],
                         pattern: {
                             value: /^(ftp|http|https):\/\/[^ "]+$/,
                             message: 'Write correct URL'
                         }
-                    })}/>
+                    })} placeholder={key}/>
                         {errors.contacts && errors.contacts[key] &&
                             <span style={{color: 'red'}}>{errors.contacts[key]?.message}</span>}
                     </div>
