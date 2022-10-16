@@ -21,7 +21,8 @@ const Content = () => {
         <div className="app-wrapper-content">
             <Routes>
 
-                <Route path="profile"
+                <Route path={''} element={<></>}/>
+                <Route path="/profile"
                        element={<ProfileContainer/>}>
                     <Route path=":userId/*" element={<ProfileContainer/>}/>
                     {/*<Route path="" element={<ProfileContainer/>}/>*/}
@@ -36,7 +37,7 @@ const Content = () => {
                 <Route path="/news" element={<News/>}/>
                 <Route path="/music" element={<Music/>}/>
                 <Route path="/settings" element={<Settings/>}/>
-                {/*<Route path={'/*'} element={<div>Error 404</div>}/>*/}
+                <Route path={'*'} element={<div>Error 404</div>}/>
             </Routes>
         </div>
     );
