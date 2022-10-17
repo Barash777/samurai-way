@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Routes} from 'react-router-dom';
+import {Navigate, Route, Routes} from 'react-router-dom';
 // import ProfileContainer from '../Profile/ProfileContainer';
 import Login from '../Forms/Login/Login';
 // import DialogsContainer from '../Dialogs/DialogsContainer';
@@ -21,7 +21,7 @@ const Content = () => {
         <div className="app-wrapper-content">
             <Routes>
 
-                <Route path={''} element={<></>}/>
+                <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
                 <Route path="/profile"
                        element={<ProfileContainer/>}>
                     <Route path=":userId/*" element={<ProfileContainer/>}/>
