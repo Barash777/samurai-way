@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import './assets/css/App.css';
 // import Header from './components/Header/Header';
 // import Sidebar from './components/Sidebar/Sidebar';
@@ -16,6 +16,8 @@ function App() {
     const initialized = useAppSelector(state => state.app.initialized)
     const dispatch = useAppDispatch()
 
+    const [collapsed, setCollapsed] = useState(false);
+
 
     useEffect(() => {
         dispatch(initializeTC())
@@ -27,26 +29,29 @@ function App() {
     if (initialized === 'failed')
         return <div>Something wrong! Try again later!</div>
 
-    return <Layout>
+    return <Layout style={{minHeight: '100vh'}}>
         <Header>
             <MyHeader/>
         </Header>
         <Layout>
-            <Sider>
+            <Sider theme={'light'} collapsible collapsed={collapsed} onCollapse={value => setCollapsed(value)}>
                 <Sidebar/>
             </Sider>
-            <Content>
-                <MyContent/>
-            </Content>
-            {/*<Sidebar/>*/}
-            {/*<MyContent/>*/}
+            <Layout>
+                <Content>
+                    <MyContent/>
+                </Content>
+                {/*<Sidebar/>*/}
+                {/*<MyContent/>*/}
+                {/*<Footer>Footer</Footer>*/}
+            </Layout>
         </Layout>
-        {/*<Footer>Footer</Footer>*/}
-        <Footer>
+
+        {/*<Footer>
             <div>
                 it's footer
             </div>
-        </Footer>
+        </Footer>*/}
     </Layout>
 
     /*return <div>

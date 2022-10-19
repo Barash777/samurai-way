@@ -1,51 +1,47 @@
 import React from 'react';
-import css from './Sidebar.module.css';
+// import css from './Sidebar.module.css';
 import {NavLink} from 'react-router-dom';
+import {
+    MessageOutlined, ProfileOutlined, TeamOutlined
+} from '@ant-design/icons';
+import type {MenuProps} from 'antd';
+import {Menu} from 'antd';
 
+type MenuItem = Required<MenuProps>['items'][number];
+
+function getItem(
+    label: React.ReactNode,
+    key: React.Key,
+    icon?: React.ReactNode,
+    children?: MenuItem[],
+    type?: 'group',
+): MenuItem {
+    return {
+        key,
+        icon,
+        children,
+        label,
+        type,
+    } as MenuItem;
+}
+
+const items: MenuItem[] = [
+    getItem(<NavLink to="/profile">Profile</NavLink>, '1', <ProfileOutlined/>),
+    getItem(<NavLink to="/dialogs">Messages</NavLink>, '2', <MessageOutlined/>),
+    getItem(<NavLink to="/users">Users</NavLink>, '3', <TeamOutlined/>),
+];
 
 function Sidebar() {
 
     return (
         <nav>
-            <div className={css.item}>
-                <NavLink to="/profile" className={({isActive}) =>
-                    isActive ? css.active : ''
-                }>Profile</NavLink>
-            </div>
-            <div className={css.item}>
-                <NavLink to="/dialogs" className={({isActive}) =>
-                    isActive ? css.active : ''
-                }>Messages</NavLink>
-            </div>
-            <div className={css.item}>
-                <NavLink to="/users" className={({isActive}) =>
-                    isActive ? css.active : ''
-                }>Users</NavLink>
-            </div>
-            <div className={css.item}>
-                <NavLink to="/news" className={({isActive}) =>
-                    isActive ? css.active : ''
-                }>News</NavLink>
-            </div>
-            <div className={css.item}>
-                <NavLink to="/music" className={({isActive}) =>
-                    isActive ? css.active : ''
-                }>Music</NavLink>
-            </div>
-            <div className={css.item}>
-                <NavLink to="/settings" className={({isActive}) =>
-                    isActive ? css.active : ''
-                }>Settings</NavLink>
-            </div>
+            <Menu
+                mode={'inline'}
+                theme="light"
+                items={items}
+            />
         </nav>
     );
 }
 
 export default Sidebar;
-
-/*
-у кого в конце 21го не работает activeClassName - необходимо заменить на
-className = { navData => navData.isActive ? s.active : s.item }
-+ пишем правило в css для .active {color: gold;} + там же переименовываем ".item a" просто в ".item"
-<div className={s.item}> тоже можно заменить на просто <div>, от класснэйма тут толку не будет
- */
