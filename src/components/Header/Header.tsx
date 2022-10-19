@@ -1,8 +1,10 @@
 import React from 'react';
 import css from './Header.module.css';
+import '../../assets/css/App.css';
 import {NavLink} from 'react-router-dom';
 import {logoutTC} from '../../redux/authReducer';
 import {useAppDispatch, useAppSelector} from '../../hooks/main';
+import {PageHeader} from "antd/es";
 
 
 function Header() {
@@ -20,6 +22,16 @@ function Header() {
     const logoutHandler = () => {
         dispatch(logoutTC())
     }
+
+    return <div>
+        <PageHeader
+            // className={css.sitePageHeader}
+            // className={'site-page-header-my'}
+            // onBack={() => null}
+            title="My Title"
+            subTitle="This is a subtitle"
+        />
+    </div>
 
     return (
         <header className={css.header}>

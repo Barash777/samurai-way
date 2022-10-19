@@ -18,7 +18,7 @@ const ProfileContainer = WithSuspense(React.lazy(() => import('../Profile/Profil
 const Content = () => {
 
     return (
-        <div className="app-wrapper-content">
+        <div>
             <Routes>
 
                 <Route path={'/'} element={<Navigate to={'/profile'}/>}/>

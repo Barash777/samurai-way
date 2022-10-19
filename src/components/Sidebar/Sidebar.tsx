@@ -6,7 +6,7 @@ import {NavLink} from 'react-router-dom';
 function Sidebar() {
 
     return (
-        <nav className={css.sidebar}>
+        <nav>
             <div className={css.item}>
                 <NavLink to="/profile" className={({isActive}) =>
                     isActive ? css.active : ''

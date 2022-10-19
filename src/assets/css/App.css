@@ -16,3 +16,8 @@
     grid-area: content-area;
     background-color: aqua;
 }
+
+.site-page-header-my {
+    border: 1px solid rgb(235, 237, 240);
+    /*border: 10px solid rgb(18, 82, 180);*/
+}

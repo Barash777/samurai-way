@@ -1,12 +1,16 @@
 import React, {useEffect} from 'react';
 import './assets/css/App.css';
-import Header from './components/Header/Header';
-import Sidebar from './components/Sidebar/Sidebar';
-import Content from './components/Content/Content';
+// import Header from './components/Header/Header';
+// import Sidebar from './components/Sidebar/Sidebar';
+import MyContent from './components/Content/Content';
 import {useAppDispatch, useAppSelector} from './hooks/main';
 import {initializeTC} from './redux/appReducer';
 import Preloader from './components/Preloader/Preloader';
+import {Layout} from "antd";
+import MyHeader from "./components/Header/Header";
+import Sidebar from "./components/Sidebar/Sidebar";
 
+const {Footer, Header, Sider, Content} = Layout;
 
 function App() {
     const initialized = useAppSelector(state => state.app.initialized)
@@ -23,11 +27,39 @@ function App() {
     if (initialized === 'failed')
         return <div>Something wrong! Try again later!</div>
 
-    return <div className="app-wrapper">
+    return <Layout>
+        <Header>
+            <MyHeader/>
+        </Header>
+        <Layout>
+            <Sider>
+                <Sidebar/>
+            </Sider>
+            <Content>
+                <MyContent/>
+            </Content>
+            {/*<Sidebar/>*/}
+            {/*<MyContent/>*/}
+        </Layout>
+        {/*<Footer>Footer</Footer>*/}
+        <Footer>
+            <div>
+                it's footer
+            </div>
+        </Footer>
+    </Layout>
+
+    /*return <div>
         <Header/>
         <Sidebar/>
         <Content/>
     </div>
+
+    return <div className="app-wrapper">
+        <Header/>
+        <Sidebar/>
+        <Content/>
+    </div>*/
 
     /*return (
         <div className="app-wrapper">
