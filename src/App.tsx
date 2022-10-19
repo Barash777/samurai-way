@@ -30,9 +30,9 @@ function App() {
         return <div>Something wrong! Try again later!</div>
 
     return <Layout style={{minHeight: '100vh'}}>
-        <Header>
-            <MyHeader/>
-        </Header>
+        {/*<Header>*/}
+        <MyHeader/>
+        {/*</Header>*/}
         <Layout>
             <Sider theme={'light'} collapsible collapsed={collapsed} onCollapse={value => setCollapsed(value)}>
                 <Sidebar/>

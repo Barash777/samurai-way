@@ -17,7 +17,17 @@
     background-color: aqua;
 }
 
-.site-page-header-my {
-    border: 1px solid rgb(235, 237, 240);
+.site-page-header {
+    border: 5px solid rgb(235, 237, 240);
+    margin: 100px;
     /*border: 10px solid rgb(18, 82, 180);*/
+}
+
+.site-page-header-my {
+    border: 5px solid rgb(235, 237, 240);
+    /*border: 10px solid rgb(18, 82, 180);*/
+}
+
+.site-page-header-avatar {
+    cursor: pointer;
 }

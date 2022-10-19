@@ -5,7 +5,8 @@ import {NavLink} from 'react-router-dom';
 import {logoutTC} from '../../redux/authReducer';
 import {useAppDispatch, useAppSelector} from '../../hooks/main';
 import {PageHeader} from "antd/es";
-
+import {Avatar, Button, Popover, Typography} from "antd";
+import logo from "../../assets/images/default_avatar.png";
 
 function Header() {
 
@@ -23,15 +24,37 @@ function Header() {
         dispatch(logoutTC())
     }
 
-    return <div>
-        <PageHeader
-            // className={css.sitePageHeader}
-            className={'site-page-header-my'}
-            // onBack={() => null}
-            title="My Title"
-            subTitle="This is a subtitle"
-        />
-    </div>
+    const content = (
+        <div>
+            <Typography.Link onClick={logoutHandler}>Logout</Typography.Link>
+        </div>
+    );
+
+    return <PageHeader
+        // className={css.sitePageHeader}
+        className={'site-page-header'}
+        // onBack={() => null}
+        title="My Title"
+        subTitle="This is a subtitle"
+        // avatar={{src: ''}}
+        extra={[
+            /*<Button key="3">Operation</Button>,
+            <Button key="2">Operation</Button>,
+            <Button key="1" type="primary">
+                Primary
+            </Button>,*/
+
+            auth.isAuth ? <React.Fragment key={'user'}>
+                {/*<div>{auth.login}</div>*/}
+                <Popover key={'popover'} content={content} trigger="click" title={auth.login}>
+                    <Avatar key="logo" src={logo} size={40} className={'site-page-header-avatar'}/>
+                </Popover>
+            </React.Fragment> : <NavLink key={'login'} to={'/login'}>Login</NavLink>,
+
+
+            // <DropdownMenu key="more"/>,
+        ]}
+    />
 
     return (
         <header className={css.header}>
