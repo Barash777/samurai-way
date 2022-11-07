@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import './assets/css/App.css';
-// import Header from './components/Header/Header';
-// import Sidebar from './components/Sidebar/Sidebar';
 import MyContent from './components/Content/Content';
 import {useAppDispatch, useAppSelector} from './hooks/main';
 import {initializeTC} from './redux/appReducer';
